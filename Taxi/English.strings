@@ -1,0 +1,40 @@
+/* 
+  English.strings
+  TaxiDriver
+
+  Created by Priyesh on 26/10/17.
+  Copyright © 2017 icanStudioz. All rights reserved.
+*/
+
+"OK" = "OK";
+"Email" = "Email";
+"Password" = "Password";
+"Alert!!" = "Alert!!";
+"email and password is required to login." = "email and password is required to login.";
+"Name" = "Name";
+"Mobile" = "Mobile";
+"Are you sure to change password?" = "Are you sure to change password?";
+"Yes" = "Yes";
+"Cancel" = "Cancel";
+"Password successfully changed." = "Password successfully changed.";
+"Done" = "Done";
+"Error!!" = "Error!!";
+"Profile" = "Profile";
+"Success!!" = "Success!!";
+
+"Please fill all the fields." = "Please fill all the fields.";
+"Passwords does not match." = "Passwords does not match.";
+"Password must be more than 6 characters." = "Password must be more than 6 characters.";
+
+"Pickup location and drop location require to continue.Please fill all details." = "Pickup location and drop location require to continue.Please fill all details.";
+"You are successfully register. Please confirm your email and login" = "You are successfully register. Please confirm your email and login";
+
+"Mobile Number" = "Mobile Number";
+"Confirm Password" = "Confirm Password";
+"Password Reset" = "Password Reset";
+"Enter your email address you used to sign in." = "Enter your email address you used to sign in.";
+"Reset my password" = "Reset my password";
+"Please upload all the documents to continue." = "Please upload all the documents to continue.";
+"Paypal ID" = "Paypal ID";
+"No data found." = "No data found.";
+"Please fill required fields." = "Please fill required fields.";

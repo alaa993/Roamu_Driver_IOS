@@ -1,0 +1,242 @@
+"MenuItem0" = "الصفحة الرئيسية";
+"MenuItem21" = "الخرائط";
+"MenuItem20" = "رحلاتي المقبولة";
+"MenuItem1" = "رحلاتي";
+"MenuItem2" = "الطلبات المقبولة";
+"MenuItem3" = "الرحلات المكتملة";
+"MenuItem4" = "الطلبات الملغات";
+"MenuItem5" = "الملف الشخصي";
+"MenuItem6" = "معلومات السيارة";
+"MenuItem7" = "سجل التنقلات";
+"MenuItem8" = "إدارة المجموعات";
+"MenuItem9" = "الأحكام العامة";
+"MenuItem10" = "من نحن";
+"MenuItem11" = "اللغات";
+"MenuItem12" = "منصة التواصل الاجتماعي";
+"MenuItem13" = "تعليقات المسافرين";
+"MenuItem14" = "تسجيل الخروج";
+"MenuItem15" = "نجاح و أرباح";
+"MenuItem16" = "اتصل بنا";
+"MenuItem17" = "ترشيح سائق";
+"MenuItem18" = "الاشعارات";
+"MenuItem19" = "مشاركة التطبيق";
+
+"onlineStatus" = "أنت متصل بالإنترنت";
+"offlineStatus" = "انت غير متصل بالإنترنت";
+
+"HomeVC_Title" = "الرئيسية";
+
+"BackButton" = "الرجوع";
+
+"LanguageVC_lbl" = "تغيير اللغة";
+"LanguageVC_button" = "العربية";
+"LanguageVC_English" = "اللغة الانكليزية";
+"LanguageVC_Arabic" = "اللغة العربية";
+
+"SplashVC_loginButtonWithFirebase" = "تسجيل الدخول";
+
+"SignUpVC_signUpButton" = "إنشاء حساب";
+"SignUpVC_nameText" = "الإسم";
+"SignUpVC_emailText" = "الإيميل";
+"SignUpVC_SocialStatusEmployess" = "موظف";
+"SignUpVC_SocialStatusStudent" = "طالب";
+"SignUpVC_SocialStatusRegular" = "عام";
+"SignUpVC_OptionalText" = "اختياري";
+
+"ProcileVCTitle" = "الملف الشخصي";
+"ProcileVC_mobile" = "الهاتف المحمول";
+"ProcileVC_Password" = "تغيير كلمة المرور";
+
+"FindTravelVC_Pickup_Add" = "من";
+"FindTravelVC_Drop_Add" = "إلى";
+"FindTravelVC_TravelTime" = "وقت السفر";
+"FindTravelVC_Smoked" = "مدخن";
+"FindTravelVC_Platform" = "إضافة إلى المنصة";
+"FindTravelVC_Passengers" = "ركاب";
+"FindTravelVC_FindTravel" = "البحث عن راكب";
+"FindTravelVC_AddTravel" = "حفظ";
+"FindTravelVC_SmokedYes" = "نعم، مدخن";
+"FindTravelVC_SmokedNo" = "لست مدخن";
+"FindTravelVC_PlatformYes" = "أضف إلى المنصة";
+"FindTravelVC_PlatformNo" = "لا تضف إلى المنصة";
+"FindTravelVC_Done" = "تم";
+"FindTravelVC_Title" = "الرئيسية";
+"FindTravelVC_Car" = "سيارة";
+"FindTravelVC_Minibus" = "حافلة صغيرة";
+"FindTravelVC_Bus" = "حافلة كبيرة";
+"FindTravelVC_CarType" = "نوع المركبة";
+
+"AddTravelVC_Amount" = "المبلغ";
+"AddTravelVC_BookedSet" = "عدد المقاعد المتاحة";
+"AddTravelVC_Title" = "حفظ";
+
+"SearchVCancelButton" = "إلغاء";
+
+"PassengersVCSeatsLabel" = "عدد المقاعد";
+"PassengersVCAddPassengerButton" = "أضف";
+"PassengersVCSubsPassengerButton" = "إطرح";
+"PassengersVCConfirmButton" = "تأكيد";
+"PassengersVCCancelButton" = "الرجوع";
+
+"RequestsVCAcceptTitle" = "الطلبات المقبولة";
+"RequestsVCPendingTitle" = "الطلبات المعلقة";
+"RequestsVCCompletedTitle" = "الرحلات المكتملة";
+"RequestsVCCancelledTitle" = "الطلبات الملغات";
+"RequestsVCWaitedTitle" = "الطلبات المنتظرة";
+"RequestsVCSearchTitle" = "البحث عن رحلة";
+"RequestsVCPromosTitle" = "الرموز الترويجية";
+
+"RequestsCell_Fromlbl" = "من";
+"RequestsCell_Tolbl" = "إلى";
+"RequestsCell_Datelbl" = "التاريخ";
+"RequestsCell_DriverNamelbl" = "اسم السائق";
+"RequestsCell_Namelbl" = "الإسم";
+"RequestsCell_customerslbl" = "عدد الركاب";
+"RequestsCell_TotalFare" = "سعر الرحلة الكلي";
+
+"RequestsVCReqlbl" = "نوع الرحلة";
+"RequestsVCSearchlbl" = "البحث عن رحلة";
+"RequestsVCAllTitle" = "جميع الطلبات";
+
+"DetailReqVCNamelbl" = "الإسم";
+"DetailReqVCMobileNlbl" = "الهاتف المحمول";
+"DetailReqVCPickupAddlbl" = "من";
+"DetailReqVCDropAddlbl" = "إلى";
+"DetailReqVCFarelbl" = "سعر الرحلة";
+"DetailReqVCPaymentStatuslbl" = "طريقة الدفع";
+"DetailReqVCPassengerslbl" = "عدد المقاعد (1)";
+"DetailReqVCPassengersNlbl" = "عدد المقاعد";
+"DetailReqVCEmptySetlbl" = "عدد المقاعد الفارغة";
+"DetailReqVCTitle" = "معلومات الرحلة";
+"DetailReqVC_Complete" = "إنهاء";
+"DetailReqVC_Cancel" = "إلغاء";
+"DetailReqVC_Track" = "تتبع مسار الرحلة";
+"DetailReqVC_Start" = "ابدأ الرحلة";
+"DetailReqVC_Pay" = "ادفع الآن";
+"DetailReqVC_offlinePayment" = "تآكيد الدفع نقدا";
+"DetailReqVC_Accept" = "قبول";
+"DetailReqVCCommentslbl" = "التعليقات";
+
+"DetailReqVCTimelbl" = "التوقيت";
+"DetailReqVCdatelbl" = "التاريخ";
+"DetailReqVCPickupPointlbl" = "نقطة التقاط";
+"DetailReqVC_refreshButton" = "تم التحديث";
+
+"ConfirmRideVC_Vehiclelbl" = "لوحة السيارة";
+"ConfirmRideVC_Smokedlbl" = "مدخن";
+"ConfirmRideVC_Distancelbl" = "المسافة";
+"ConfirmRideVC_confirmButton" = "تآكيد الحجز";
+"ConfirmRideVC_city" = "المدينة";
+"ConfirmRideVC_Alert" = "تنبيه";
+"ConfirmRideVC_AlertDetail" = "رجاءا اختر عدد المقاعد اكثر من عدد الركاب";
+
+"TransactionsVC_Title" = "سجل التنقلات";
+
+"GroupManagementVC_Title" = "إدارة المجموعات";
+"GroupManagementVC_DriverPhone" = "رقم هاتف السائق";
+"GroupManagementVC_GroupName" = "أسم المجموعة";
+"GroupManagementVC_AdminName" = "اسم المدير";
+"GroupManagementVC_GroupMembers" = "اعضاء المجموعة";
+"GroupManagementVC_AddDriver" = "إضافة سائق";
+"GroupManagementVC_DeleteDriver" = "حذف سائق";
+"GroupManagementVC_AddGroup" = "أضف مجموعة";
+"GroupManagementVC_DriverPh" = "الهاتف";
+"GroupManagementVC_DriverName" = "الإسم";
+"GroupManagementVC_DriverMail" = "الإيميل";
+"GroupManagementVC_DriverStatus" = "الحالة";
+"GroupManagementVC_ChangeGroupName" = "تغيير اسم المجموعة";
+"GroupManagementVC_MyGroups" = "المجموعات الخاصة بي";
+
+"DriverInfoVC_ACCEPTED" = "الطلبات المقبولة";
+"DriverInfoVC_PENDING" = "الطلبات المعلقة";
+"DriverInfoVC_COMPLETED" = "الرحلات المكتملة";
+"DriverInfoVC_CANCELLED" = "الطلبات الملغات";
+"DriverInfoVC_TravelType" = "نوع الطلب";
+"DriverInfoVC_Approve" = "عرض";
+"DriverInfoVC_Name" = "الإسم";
+"DriverInfoVC_Mobile" = "الهاتف";
+"DriverInfoVC_Email" = "الإيميل";
+"DriverInfoVC_Country" = "البلد";
+"DriverInfoVC_Status" = "الحالة";
+"DriverInfoVC_Vehicle" = "لوحة السيارة";
+"DriverInfoVC_Title" = "معلومات السائق";
+"DriverInfoVC_Online" = "متصل";
+"DriverInfoVC_Offline" = "غير متصل";
+
+"ChangePassVC_currentPass" = "كلمة المرور الحالية";
+"ChangePassVC_newPass" = "كلمة السر الجديدة";
+"ChangePassVC_confirmPass" = "تأكيد كلمة المرور";
+"ChangePassVC_changePass" = "تغيير كلمة المرور";
+
+"VehicleTableVC_Title" = "معلومات السيارة";
+"VehicleTableVC_AddVehicleDocslbl" = "أضف وثائق المركبة";
+"VehicleTableVC_updateButton" = "تحديث";
+
+"VehicleDetailVC_Titel" = "وثائق المركبة";
+"VehicleDetailVC_DrivingLicence" = "قم بتحميل رخصة القيادة الخاصة بك";
+"VehicleDetailVC_personalId" = "الهوية الشخصية";
+"VehicleDetailVC_VehicleReg" = "صورة المركبة";
+
+"PlatformVC_Title" = "المنصة";
+
+"NewPostVC_PostButton" = "أضف";
+"NewPostVC_placeHolderLabel" = "ماذا تريد أن تنشر!";
+
+"PostDetailsVC_CommentButton" = "علق";
+"PostDetailsVC_Comments1" = "لا توجد تعليقات حتى الآن!";
+"PostDetailsVC_Comments2" = "كن أول من يعلق.";
+
+"GoogleSearchVC_ConfirmButton" = "تأكيد";
+
+"Enter number of passengers,Trip price" = "ادخل عدد المقاعد المتاحة وسعر الرحلة";
+"Enter_Trip_price" = "ادخل سعر الرحلة";
+
+"number of passengers 1" = "عدد المقاعد المتاحة ١";
+"Trip price" = "سعر الرحلة";
+"Cancel" = "الغاء";
+"Submit" = "تأكيد";
+"PickUpPoint" = "نقطة التقاط";
+
+"Travel_is_going_from" = "اتمنى لكم رحلة ممتعة معي: ";
+"Travel_from" = "من: ";
+"Travel_to" = "الى: ";
+"Travel_on" = "بتاريخ: ";
+"the_clock" = "الساعة: ";
+
+"AboutUSVC_text1" = "عن التطبيق\n";
+"AboutUSVC_text2" = "يعمل التطبيق في مجال التنقل التشاركي، مع ميزة رائدة في هذا النوع من التنقل، إذ منحنا كلا من صاحب وسيلة النقل و المستخدم فرصة الحجز لدى الآخر بحرية تامة   و عندما يرغب المسافر الذهاب إلى منطقة داخل مدينته أو إلى مدينة اخرى يبحث عن وسائل النقل المتاحة في الوقت المناسب له ، و يختار ما يرى أنها مناسبة لرحلته من بين السيارات المتاحة ، و للسائق حرية الموافقة أو الاعتذار بعد مشاهدة ملف المسافر.\n";
+"AboutUSVC_text3" = "ويبحث السائق عن الراغبين بالسفر في التوقيت الذي يغادر به و الوجهة المقررة ، و يختار المسافرين المناسبين للسفر معه ، و تكون الموافقة النهائية  للمسافر نفسه بعد الاطلاع على ملف السائق و تقييمه من قبل الآخرين.\n";
+"AboutUSVC_text4" = "التقييم في التطبيق لا يقتصر على  المركبة  واداء السائق فقط ، بل اضفنا تقييما لسعر الرحلة التي يحددها صاحب السيارة ، و هدفنا  من ذلك تقديم افضل الأسعار و خدمة متميزة للمسافرين مع التطبيق.\n";
+"AboutUSVC_text5" = "يكون المسافر على اطلاع قبل الحجز على مواصفات المركبة وعدد الحقائب المسموح بها، وفيما إذا كان مسموحا بالتدخين خلال الرحلة من عدمه.";
+
+"ProvisionsVC_text1" = "الأحكام العامة\n";
+"ProvisionsVC_text2" = "نقصد بالأحكام العامة، ما يتعلق بالخدمات المقدمة لكل من المستخدمين واصحاب السيارات.\n";
+"ProvisionsVC_text3" = "نحرص على توضيح طبيعة الخدمة المقدمة، والتي تتوافق ومتطلبات النقل التشاركي المتعارف عليه في دول العالم، وبقدر ما نحرص على تقديم خدمات متقدمة ومتكاملة، نؤكد أن بلوغ هذا الهدف يقتضي تعاونا تاما من قبل اصحاب السيارات والمستخدمين في آن واحد، وعلى جميع الاطراف الايمان بأن الجميع شركاء في هذه الخدمة، وأن نجاحها يعتمد على نوع التعاون وطبيعته، وأن تحقيق مجموعة الأهداف التي نصبوا إليها، لن يتحقق بدون فهم طبيعة عملنا وعمق الاهداف و هميتها وضرورة تطوير هذه الخدمات.\n";
+"ProvisionsVC_text4" = "يسعى التنقل التشاركي إلى تحقيق هدف رئيسي يرتبط بتوفير وسائط تنقل مريحة ومتميزة، ليقلل الناس من استخدام مركباتهم الخاصة، ما يسهم في خدمة البيئة وذلك بالتقليل من التلوث، وتوفير وسائط تنقل جماعية بأسعار تنافسية، ويسهم في التقليل من استهلاك المحروقات.\n";
+"ProvisionsVC_text5" = "إن اشاعة التنقل التشاركي وفق الاهداف التي ذكرناها أعلاه، تدفع بجميع أطراف هذه الخدمة للحرص على التعاون والارتقاء بالتنقل إلى درجات متميزة.";
+
+"PostTableVC_aboutButton" = "عن المسافر";
+
+"ProfitVC_text1" = "نجاح و أرباح\n";
+"ProfitVC_text2" = "لن يكون النجاح بعيدا عنك ، الذي يعني تحقيق المزيد من الأرباح ، و سندون هنا مجموعة نقاط التي تمثل مفتاح النجاح و الطريق المؤدي إلى جني الأرباح.\n";
+"ProfitVC_text3" = "أولا- احرص للحصول على تقييم متقدم من قبل زبائنك ، فهو وسيلتك الإعلانية الافضل لجذب الزبائن.\n";
+"ProfitVC_text4" = "ثانيا- الحرص على حصول تقييم الزبائن لسعر الرحلة التي تتقاضاها من الزبائن و أن تكون معقولة ، ما يضعك في منافسة حقيقية مع الاخرين. \" نحن التطبيق الرائد في استخدام تقييم خاص بسعر الرحلة\".\n";
+"ProfitVC_text5" = "ثالثا- راقب باستمرار عدد الرحلات التي استخدمت فيها التطبيق و عدد الذين تنقلوا معك ، هذا وحده يعطي ثقة كبيرة للاخرين. تذكر دائما أن المسافر يدقق في معلومات ملفك قبل السفر معك.\n";
+"ProfitVC_text6" = "رابعا- أن مراعاة ما يرغب به المسافرون الواجهة الحضارية لجذب الكثيرين ، احرص على ذلك.\n";
+"ProfitVC_text7" = "يتحقق النجاح من خلال المعلومات التي يعرضها التطبيق في حسابك امام الجمهور، تذكر باستمرار مقولة النجاح بوابة الأرباح.\n";
+
+"ContactUsVC_Name" = "الاسم";
+"ContactUsVC_Email" = "الايميل";
+"ContactUsVC_Details" = "التفاصيل";
+"ContactUsVC_Send" = "ارسال";
+
+"NominateDriverVC_Name" = "اسم السائق";
+"NominateDriverVC_Email" = "الايميل";
+"NominateDriverVC_City" = "مدينة السائق";
+"NominateDriverVC_Country" = "بلد السائق";
+"NominateDriverVC_Phone" = "هاتف السائق";
+"NominateDriverVC_Vehicle" = "رقم سيارة السائق";
+"NominateDriverVC_Description" = "التفاصيل";
+
+"Notification_ride_updated" = ": تم تحديث الرحلة";
+"Notification_accepted_request" = "تم قبول طلبكم";

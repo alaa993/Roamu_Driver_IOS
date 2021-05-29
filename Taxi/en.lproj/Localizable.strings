@@ -1,0 +1,247 @@
+"MenuItem0" = "Home";
+"MenuItem21" = "Maps";
+"MenuItem20" = "My Accepted Travels";
+"MenuItem1" = "My Travels";
+"MenuItem2" = "Accepted Requests";
+"MenuItem3" = "Completed Rides";
+"MenuItem4" = "Cancelled";
+"MenuItem5" = "Profile";
+"MenuItem6" = "Vehicle Information";
+"MenuItem7" = "Transaction History";
+"MenuItem8" = "Group Management";
+"MenuItem9" = "General Provisions";
+"MenuItem10" = "About Us";
+"MenuItem11" = "Language";
+"MenuItem12" = "Social media platform";
+"MenuItem13" = "Users Comments";
+"MenuItem14" = "Log Out";
+"MenuItem15" = "Success and Profit";
+"MenuItem16" = "Contact Us";
+"MenuItem17" = "Nominate a Driver";
+"MenuItem18" = "Notifications";
+"MenuItem19" = "Share Application";
+
+"onlineStatus" = "You are online";
+"offlineStatus" = "You are offline";
+
+"HomeVC_Title" = "Home";
+
+"BackButton" = "Back";
+
+"LanguageVC_lbl" = "Change Language";
+"LanguageVC_button" = "English";
+"LanguageVC_English" = "English";
+"LanguageVC_Arabic" = "Arabic";
+
+"SplashVC_loginButtonWithFirebase" = "Login";
+
+"SignUpVC_signUpButton" = "Sign Up";
+"SignUpVC_nameText" = "Name";
+"SignUpVC_emailText" = "Email";
+"SignUpVC_SocialStatusEmployess" = "Employee";
+"SignUpVC_SocialStatusStudent" = "Student";
+"SignUpVC_SocialStatusRegular" = "General";
+"SignUpVC_OptionalText" = "Optional";
+
+"ProcileVCTitle" = "Profile";
+"ProcileVC_mobile" = "Mobile";
+"ProcileVC_Password" = "Change Password";
+
+"FindTravelVC_Pickup_Add" = "From";
+"FindTravelVC_Drop_Add" = "To";
+"FindTravelVC_TravelTime" = "Travel Time";
+"FindTravelVC_Smoked" = "Smoked";
+"FindTravelVC_Platform" = "Add To Platform";
+"FindTravelVC_Passengers" = "Passengers";
+"FindTravelVC_FindTravel" = "Find passenger";
+"FindTravelVC_AddTravel" = "Save";
+"FindTravelVC_SmokedYes" = "Yes";
+"FindTravelVC_SmokedNo" = "No";
+"FindTravelVC_PlatformYes" = "Add to platform";
+"FindTravelVC_PlatformNo" = "Don't Add to platform";
+"FindTravelVC_Done" = "Done";
+"FindTravelVC_Title" = "Home";
+"FindTravelVC_Car" = "Car";
+"FindTravelVC_Minibus" = "Minibus";
+"FindTravelVC_Bus" = "Bus";
+"FindTravelVC_CarType" = "Car Type";
+
+"AddTravelVC_Amount" = "Amount";
+"AddTravelVC_BookedSet" = "Available Seat";
+"AddTravelVC_Title" = "Add Travel";
+
+"SearchVCancelButton" = "Cancel";
+
+"PassengersVCSeatsLabel" = "Number of seats to book";
+"PassengersVCAddPassengerButton" = "Add";
+"PassengersVCSubsPassengerButton" = "Sub";
+"PassengersVCConfirmButton" = "Confirm";
+"PassengersVCCancelButton" = "Back";
+
+"RequestsVCAcceptTitle" = "Accepted Requests";
+"RequestsVCPendingTitle" = "Pending Requests";
+"RequestsVCCompletedTitle" = "Completed Requests";
+"RequestsVCCancelledTitle" = "Cancelled Requests";
+"RequestsVCWaitedTitle" = "Waited Requestes";
+"RequestsVCSearchTitle" = "Search Travel";
+"RequestsVCPromosTitle" = "Promos";
+
+"RequestsCell_Fromlbl" = "From";
+"RequestsCell_Tolbl" = "To";
+"RequestsCell_Datelbl" = "Date";
+"RequestsCell_DriverNamelbl" = "Driver Name";
+"RequestsCell_Namelbl" = "Name";
+"RequestsCell_customerslbl" = "Customers Count";
+"RequestsCell_TotalFare" = "Total Trip Price";
+
+"RequestsVCReqlbl" = "Request Type";
+"RequestsVCSearchlbl" = "Find Travel";
+"RequestsVCAllTitle" = "All Requests";
+
+"DetailReqVCNamelbl" = "Name";
+"DetailReqVCMobileNlbl" = "Mobile Number";
+"DetailReqVCPickupAddlbl" = "Pickup Address";
+"DetailReqVCDropAddlbl" = "DropAddress";
+"DetailReqVCFarelbl" = "Trip Price";
+"DetailReqVCPaymentStatuslbl" = "Payment Status";
+"DetailReqVCPassengerslbl" = "No of Passengers 1";
+"DetailReqVCPassengersNlbl" = "No of Passengers";
+"DetailReqVCEmptySetlbl" = "Empty Seat";
+"DetailReqVCTitle" = "Ride Information";
+"DetailReqVC_Complete" = "COMPLETE";
+"DetailReqVC_Cancel" = "CANCEL";
+"DetailReqVC_Track" = "TRACK RIDE";
+"DetailReqVC_Start" = "Start Travel";
+"DetailReqVC_Pay" = "PAY NOW";
+"DetailReqVC_offlinePayment" = "APPROVE OFFLINE PAYMENT";
+"DetailReqVC_Accept" = "ACCEPT";
+"DetailReqVCTimelbl" = "Time";
+"DetailReqVCdatelbl" = "Date";
+"DetailReqVCPickupPointlbl" = "Pickup Point";
+"DetailReqVCCommentslbl" = "Comments";
+"DetailReqVC_refreshButton" = "Refresh";
+
+"ConfirmRideVC_Vehiclelbl" = "Vehicle";
+"ConfirmRideVC_Smokedlbl" = "Smoked";
+"ConfirmRideVC_Distancelbl" = "Distance";
+"ConfirmRideVC_confirmButton" = "CONFIRM";
+"ConfirmRideVC_city" = "City";
+"ConfirmRideVC_Alert" = "Alert";
+"ConfirmRideVC_AlertDetail" = "Please select Number of Seats more than passengers Number";
+
+"TransactionsVC_Title" = "Transaction History";
+
+"GroupManagementVC_Title" = "Group Management";
+"GroupManagementVC_DriverPhone" = "Driver Phone number";
+"GroupManagementVC_GroupName" = "Group Name";
+"GroupManagementVC_AdminName" = "Admin Name";
+"GroupManagementVC_GroupMembers" = "Group Members";
+"GroupManagementVC_AddDriver" = "Add Driver";
+"GroupManagementVC_DeleteDriver" = "Delete Driver";
+"GroupManagementVC_AddGroup" = "Add Group";
+"GroupManagementVC_DriverPh" = "Phone";
+"GroupManagementVC_DriverName" = "Name";
+"GroupManagementVC_DriverMail" = "Mail";
+"GroupManagementVC_DriverStatus" = "Status";
+"GroupManagementVC_ChangeGroupName" = "Change Group Name";
+"GroupManagementVC_MyGroups" = "My Groups";
+
+"DriverInfoVC_ACCEPTED" = "ACCEPTED";
+"DriverInfoVC_PENDING" = "PENDING";
+"DriverInfoVC_COMPLETED" = "COMPLETED";
+"DriverInfoVC_CANCELLED" = "CANCELLED";
+"DriverInfoVC_TravelType" = "Travel Type";
+"DriverInfoVC_Approve" = "Show";
+"DriverInfoVC_Name" = "Name";
+"DriverInfoVC_Mobile" = "Mobile";
+"DriverInfoVC_Email" = "Email";
+"DriverInfoVC_Country" = "Country";
+"DriverInfoVC_Status" = "Status";
+"DriverInfoVC_Vehicle" = "Vehicle";
+"DriverInfoVC_Title" = "Driver Info";
+"DriverInfoVC_Online" = "Online";
+"DriverInfoVC_Offline" = "Offline";
+
+"ChangePassVC_currentPass" = "Current Password";
+"ChangePassVC_newPass" = "New Password";
+"ChangePassVC_confirmPass" = "Confirm Password";
+"ChangePassVC_changePass" = "Change Password";
+
+"VehicleTableVC_Title" = "Vehicle Information";
+"VehicleTableVC_AddVehicleDocslbl" = "Add Vehicle Documents";
+"VehicleTableVC_updateButton" = "UPDATE";
+
+"VehicleDetailVC_Titel" = "Vehicle Documents";
+"VehicleDetailVC_DrivingLicence" = "Upload your driving licence";
+"VehicleDetailVC_personalId" = "personal identification";
+"VehicleDetailVC_VehicleReg" = "Vehicle image";
+
+"PlatformVC_Title" = "Platform";
+
+"NewPostVC_PostButton" = "Post";
+"NewPostVC_placeHolderLabel" = "What's happening?";
+
+"PostDetailsVC_CommentButton" = "Comment";
+"PostDetailsVC_Comments1" = "No Comments Yet!";
+"PostDetailsVC_Comments2" = "Be the first to comment.";
+
+"GoogleSearchVC_ConfirmButton" = "Confirm";
+
+"Enter number of passengers,Trip price" = "Enter number of Seats,Trip price";
+"Enter_Trip_price" = "Enter Trip price";
+
+"number of passengers 1" = "number of Seats (1)";
+"Trip price" = "Trip price";
+"Cancel" = "Cancel";
+"Submit" = "Submit";
+"PickUpPoint" = "Pickup Point";
+
+"Travel_is_going_from" = "Have a nice trip with me";
+"Travel_from" = "From: ";
+"Travel_to" = "To: ";
+"Travel_on" = "On: ";
+"the_clock" = "The Clock: ";
+
+"AboutUSVC_text1" = "About the application\n";
+"AboutUSVC_text2" = "The application works in the field of participatory mobility,
+with a pioneering feature in this type of transportation,
+as we gave both the owner of the means of transportation
+and the user the opportunity to reserve with the other freely,
+and when the traveler wants to go to an area within his city
+or to another city looking for available means of transportation At the appropriate time for him, and he chooses what he deems appropriate for his trip from among the available cars, and the driver is free to agree or apologize after seeing the traveler’s profile.\n";
+"AboutUSVC_text3" = "The driver searches for those who wish to travel at the time he leaves and the scheduled destination, and chooses the suitable travelers to travel with him, and the final approval of the traveler himself will be after reviewing the driver's file and its evaluation by others.\n";
+"AboutUSVC_text4" = "The evaluation in the application is not limited to the vehicle and the performance of the driver only, but we have added an evaluation of the fare determined by the car owner, and our aim was to provide the best prices and outstanding service to travelers with the application.\n";
+"AboutUSVC_text5" = "The passenger shall be aware, before booking, of the vehicle specifications and the number of bags allowed, and if smoking is allowed during the trip or not.\n";
+
+"ProvisionsVC_text1" = "General provisions\n";
+"ProvisionsVC_text2" = "By general provisions, we mean services related to both users and car owners.\n";
+"ProvisionsVC_text3" = "We strive to clarify the nature of the service provided, which is in line with the requirements of participatory transportation that is recognized in the countries of the world, and as much as we strive to provide advanced and integrated services, we confirm that achieving this goal requires full cooperation by car owners and users at the same time, and All parties must believe that everyone is a partner in this service, and that its success depends on the type and nature of cooperation, and that achieving the set of goals that we want to achieve will not be achieved without understanding the nature of our work, the depth of the goals, their importance and the need to develop these services.\n";
+"ProvisionsVC_text4" = "Participatory mobility seeks to achieve a major goal related to providing comfortable and distinct means of transportation, to reduce people from using their own vehicles, which contributes to serving the environment by reducing pollution, and providing mass mobility at competitive prices, and contributes to reducing fuel consumption.\n";
+"ProvisionsVC_text5" = "The rumor of participatory mobility, according to the goals that we mentioned above, pushes all parties to this service to ensure cooperation and advance mobility to distinct levels.\n";
+
+"PostTableVC_aboutButton" = "About User";
+
+"ProfitVC_text1" = "Success and Profit\n";
+"ProfitVC_text2" = "By general provisions, we mean services related to both users and car owners.\n";
+"ProfitVC_text3" = "First - Be sure to get an advanced evaluation from your customers, as it is your best advertising method to attract customers.\n";
+"ProfitVC_text4" = "Second - Ensure that customers ’evaluation of the wages they receive from customers is reasonable, which puts you in a real competition with others. \"We are the leading app for using fare appraisal.\"\n";
+"ProfitVC_text5" = "Third - Monitor constantly the number of trips you used the application and the number of those who traveled with you, this alone gives great confidence to others. Always remember that the traveler checks your file information before traveling with you.\n";
+"ProfitVC_text6" = "Fourth - that considering what the travelers want as a cultural front to attract many, be keen on that.\n";
+"ProfitVC_text7" = "Success is achieved through the information that the application displays in your account in front of the public. Always remember a saying Success Gateway Profits";
+
+"ContactUsVC_Name" = "Name";
+"ContactUsVC_Email" = "Email";
+"ContactUsVC_Details" = "Details";
+"ContactUsVC_Send" = "Send";
+
+"NominateDriverVC_Name" = "Driver Name";
+"NominateDriverVC_Email" = "Email";
+"NominateDriverVC_City" = "Driver City";
+"NominateDriverVC_Country" = "Driver Country";
+"NominateDriverVC_Phone" = "Driver Phone";
+"NominateDriverVC_Vehicle" = "Driver Vehicle";
+"NominateDriverVC_Description" = "Description";
+
+"Notification_ride_updated" = "Ride Updated: ";
+"Notification_accepted_request" = "Accepted Your Request";
+
