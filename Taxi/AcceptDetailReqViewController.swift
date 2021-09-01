@@ -143,7 +143,9 @@ class AcceptDetailReqViewController: UIViewController {
             else
             {
                 //                print("no")
+//                acceptButton.isHidden = true
                 acceptButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVC_Track", comment: ""), for: .normal)
+                acceptButton.isHidden = true
                 cancelButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVC_Cancel", comment: ""), for: .normal)
             }
         }
@@ -160,7 +162,7 @@ class AcceptDetailReqViewController: UIViewController {
             {
                 //                print("buttons pending")
                 cancelButton.isHidden = true
-                acceptButton.isHidden = false
+                acceptButton.isHidden = true
             }
             else
             {
@@ -214,11 +216,13 @@ class AcceptDetailReqViewController: UIViewController {
             }
             else
             {
-                offlinePaymentButton.isHidden = false
-                offlinePaymentButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVC_offlinePayment", comment: ""), for: .normal)
-                if self.paymentStatus == "PAID"
-                {
-                    offlinePaymentButton.isHidden = true
+                if (travel_status == "STARTED"){
+                    offlinePaymentButton.isHidden = false
+                    offlinePaymentButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVC_offlinePayment", comment: ""), for: .normal)
+                    if self.paymentStatus == "PAID"
+                    {
+                        offlinePaymentButton.isHidden = true
+                    }
                 }
             }
         }
@@ -309,7 +313,7 @@ class AcceptDetailReqViewController: UIViewController {
         {
             print("sendRequests pending")
             travel_status = "STARTED"
-            params = ["ride_id":rideDetail!.rideId,"status":status, "travel_id":rideDetail!.travelId, "travel_status":self.travel_status]
+            params = ["ride_id":rideDetail!.rideId,"status":status, "travel_id":rideDetail!.travelId, "travel_status":self.travel_status,"by":"driver"]//, "by":"driver"
         }
         else
         {
@@ -326,7 +330,7 @@ class AcceptDetailReqViewController: UIViewController {
                 travel_status = "PENDING" // for later to be fixed by ibrahim
             }
             print("sendRequests not pending")
-            params = ["ride_id":rideDetail!.rideId,"status":status, "travel_id":rideDetail!.travelId, "travel_status":self.travel_status]
+            params = ["ride_id":rideDetail!.rideId,"status":status, "travel_id":rideDetail!.travelId, "travel_status":self.travel_status,"by":"driver"]//, "by":"driver"
         }
         print("ibrahim before params")
         print(params)
@@ -335,6 +339,8 @@ class AcceptDetailReqViewController: UIViewController {
         HUD.show(to: view)
         APIRequestManager.request(apiRequest: APIRouters.UpdateRides(params, headers), success: { (response) in
             HUD.hide(to: self.view)
+            print("response")
+            print(response)
             if response is String {
                 let alert = UIAlertController(title: NSLocalizedString("Success!!", comment: ""), message: response as? String, preferredStyle: .alert)
                 let done = UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default, handler: { (action) in
@@ -358,6 +364,7 @@ class AcceptDetailReqViewController: UIViewController {
                 })
                 self.updateRideFirebase(with:status,travel_status: self.travel_status, paymentStatus: self.paymentStatus, paymentMode: self.paymentMode)
                 self.updateNotificationFirebase(with:status)
+                self.updateTravelCounterFirebase(with: status)
                 print(status)
                 if status == "ACCEPTED"{
                     print("ibrahim_accepted")
@@ -383,7 +390,7 @@ class AcceptDetailReqViewController: UIViewController {
     }
     
     func sendPaymentRequests(with status:String){
-        let params = ["ride_id":rideDetail!.rideId,"payment_status":status]
+        let params = ["ride_id":rideDetail!.rideId,"travel_id":rideDetail?.travelId,"payment_status":status]//, "by":"driver"
         let headers = ["X-API-KEY":Common.instance.getAPIKey()]
         
         HUD.show(to: view)
@@ -394,8 +401,19 @@ class AcceptDetailReqViewController: UIViewController {
                 let done = UIAlertAction(title: NSLocalizedString("Done", comment: ""), style: .default, handler: { (action) in
                     //                    self.backWasPressed()
                 })
-                self.updateRideFirebase(with: self.requestPage!.rawValue, travel_status: self.travel_status, paymentStatus: status, paymentMode: self.paymentMode)
-                self.updateNotificationFirebase(with: self.requestPage!.rawValue)
+                var ride_status_st = ""
+                if self.requestPage!.rawValue == RequestView.pending.rawValue
+                {ride_status_st = "PENDING"}
+                else if self.requestPage!.rawValue == RequestView.accepted.rawValue
+                {ride_status_st = "ACCEPTED"}
+                else if self.requestPage!.rawValue == RequestView.completed.rawValue
+                {ride_status_st = "COMPLETED"}
+                else if self.requestPage!.rawValue == RequestView.cancelled.rawValue
+                {ride_status_st = "CANCELLED"}
+                self.updateRideFirebase(with: ride_status_st, travel_status: self.travel_status, paymentStatus: status, paymentMode: self.paymentMode)
+//                self.updateNotificationFirebase(with: self.requestPage!.rawValue)
+                self.updateNotificationFirebase(with: "offline_approved")
+                self.updateTravelCounterFirebase(with: "PAID")
                 alert.addAction(done)
                 self.present(alert, animated: true, completion: nil)
             }
@@ -556,7 +574,8 @@ class AcceptDetailReqViewController: UIViewController {
         let postRef = Database.database().reference().child("Notifications").child(rideDetail!.userId).childByAutoId()
         let postObject = [
             "ride_id": rideDetail!.rideId,
-            "text": LocalizationSystem.sharedInstance.localizedStringForKey(key: "Notification_ride_updated", comment: "") + status,
+            "travel_id": rideDetail!.travelId,
+            "text": status.lowercased(),
             //"Ride Updated",
             "readStatus": "0",
             "timestamp": [".sv":"timestamp"],
@@ -566,6 +585,90 @@ class AcceptDetailReqViewController: UIViewController {
             } else {
             }
         })
+    }
+    
+    func updateTravelCounterFirebase(with status:String) {
+        print("updateTravelCounteR")
+        if status == "ACCEPTED"{
+            Database.database().reference().child("Travels").child(rideDetail!.travelId).child("Counters").child("ACCEPTED").observeSingleEvent(of: .value, with: { snapshot in
+                print("snapshot")
+                print(snapshot)
+                if let data = snapshot.value as? Int{
+                    print("ibrahim")
+                    print("data")
+                    print(data)
+                    let postRef = Database.database().reference().child("Travels").child(self.rideDetail!.travelId).child("Counters").child("ACCEPTED")
+                    postRef.setValue(data + 1, withCompletionBlock: { error, ref in
+                        if error == nil {
+                            print("error")
+                        } else {
+                            print("else")
+                            // Handle the error
+                        }
+                    })
+                }
+            })
+        }
+        else if status == "COMPLETED"{
+            Database.database().reference().child("Travels").child(rideDetail!.travelId).child("Counters").child("COMPLETED").observeSingleEvent(of: .value, with: { snapshot in
+                print("snapshot")
+                print(snapshot)
+                if let data = snapshot.value as? Int{
+                    print("ibrahim")
+                    print("data")
+                    print(data)
+                    let postRef = Database.database().reference().child("Travels").child(self.rideDetail!.travelId).child("Counters").child("COMPLETED")
+                    postRef.setValue(data + 1, withCompletionBlock: { error, ref in
+                        if error == nil {
+                            print("error")
+                        } else {
+                            print("else")
+                            // Handle the error
+                        }
+                    })
+                }
+            })
+        }
+        else if status == "OFFLINE"{
+            Database.database().reference().child("Travels").child(rideDetail!.travelId).child("Counters").child("OFFLINE").observeSingleEvent(of: .value, with: { snapshot in
+                print("snapshot")
+                print(snapshot)
+                if let data = snapshot.value as? Int{
+                    print("ibrahim")
+                    print("data")
+                    print(data)
+                    let postRef = Database.database().reference().child("Travels").child(self.rideDetail!.travelId).child("Counters").child("OFFLINE")
+                    postRef.setValue(data + 1, withCompletionBlock: { error, ref in
+                        if error == nil {
+                            print("error")
+                        } else {
+                            print("else")
+                            // Handle the error
+                        }
+                    })
+                }
+            })
+        }
+        else if status == "PAID"{
+            Database.database().reference().child("Travels").child(rideDetail!.travelId).child("Counters").child("PAID").observeSingleEvent(of: .value, with: { snapshot in
+                print("snapshot")
+                print(snapshot)
+                if let data = snapshot.value as? Int{
+                    print("ibrahim")
+                    print("data")
+                    print(data)
+                    let postRef = Database.database().reference().child("Travels").child(self.rideDetail!.travelId).child("Counters").child("PAID")
+                    postRef.setValue(data + 1, withCompletionBlock: { error, ref in
+                        if error == nil {
+                            print("error")
+                        } else {
+                            print("else")
+                            // Handle the error
+                        }
+                    })
+                }
+            })
+        }
     }
     
     func updateTravelFirebase() {

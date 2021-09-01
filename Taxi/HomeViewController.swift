@@ -67,6 +67,9 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     var amount = ""
     var pickUpPoint = ""
     var travelDate = ""
+    var bagsNotes = ""
+    
+    var travels = [DriverTravel]()
     
     
     let datePicker = UIDatePicker()
@@ -187,6 +190,33 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         nav.setViewControllers([vc], animated:true)
         self.revealViewController().setFront(nav, animated: true)
         self.revealViewController().pushFrontViewController(nav, animated: true)
+        updateNotificationFirebase()
+    }
+    
+    func updateNotificationFirebase(){
+        print("updateNotificationFirebase")
+        Database.database().reference().child("Notifications").child(Common.instance.getUserId()).observeSingleEvent(of: .value, with: { snapshot in
+            print("snapshot")
+            print(snapshot)
+            for child in snapshot.children {
+                print("child")
+                if let childSnapshot = child as? DataSnapshot,
+                    let data = childSnapshot.value as? [String:Any],
+                    let notificatoin = Notification.parse(childSnapshot.key, data){
+                    print("key")
+                    print(childSnapshot.key)
+                    let postRef = Database.database().reference().child("Notifications").child(Common.instance.getUserId()).child(childSnapshot.key).child("readStatus")
+                    postRef.setValue("1", withCompletionBlock: { error, ref in
+                        if error == nil {
+                            print("error")
+                        } else {
+                            print("else")
+                            // Handle the error
+                        }
+                    })
+                }
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -249,6 +279,14 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     textField.keyboardType = .asciiCapableNumberPad
                     
             })
+            //notes
+            alertController!.addTextField(
+                configurationHandler: {(textField: UITextField!) in
+                    textField.placeholder = NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "notes_bags_weights", comment: ""),comment: "")
+                    //                textField.keyboardType = UIKeyboardType.numberPad
+                    textField.keyboardType = .default
+                    
+            })
             // platform
             alertController!.addTextField(
                 configurationHandler: {(textField: UITextField!) in
@@ -264,6 +302,14 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                                         (paramAction:UIAlertAction!) in
                                         if let textFields = alertController?.textFields{
                                             let theTextFields = textFields as [UITextField]
+                                            if theTextFields[0].text!.count == 0
+                                            {
+                                                Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString("Please fill all the fields.", comment: ""), for: self!)
+                                                return
+                                                
+                                            }else{
+                                                self?.pickUpPoint = theTextFields[0].text!
+                                            }
                                             if theTextFields[1].text!.count == 0{
                                                 self?.enteredText = "1"
                                             }else{
@@ -276,14 +322,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                                             }else{
                                                 self?.amount = theTextFields[2].text!
                                             }
-                                            if theTextFields[0].text!.count == 0
-                                            {
-                                                Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString("Please fill all the fields.", comment: ""), for: self!)
-                                                return
-                                                
-                                            }else{
-                                                self?.pickUpPoint = theTextFields[0].text!
-                                            }
+                                            self?.bagsNotes = theTextFields[3].text!
                                             self!.AddTravel_Func()
                                         }
             })
@@ -337,6 +376,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             parameters["travel_time"] = travelTime
             parameters["smoked"] = "1"
             parameters["status"] = 0
+            parameters["tr_notes"] = self.bagsNotes
             
             let headers = ["X-API-KEY":Common.instance.getAPIKey()]
             // -- show loading --
@@ -436,17 +476,26 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     
     func addTravelToFireBase(travel_id: NSNumber) {
+        
         guard let userProfile = UserService.currentUserProfile else { return }
         
         let postRef = Database.database().reference().child("Travels").child(travel_id.stringValue)
         let postObject = [
+            "Counters":[
+                "ACCEPTED":0,
+                "COMPLETED":0,
+                "OFFLINE":0,
+                "PAID":0
+            ],
             "driver_id": Common.instance.getUserId()
             ] as [String:Any]
+        
         postRef.setValue(postObject, withCompletionBlock: { error, ref in
             if error == nil {
             } else {
             }
         })
+        
     }
     
     func validateTextFields1() -> Bool {
@@ -761,12 +810,13 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("tableView clicked")
-        // -- push to detail view with required data --
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailReqViewController") as! DetailReqViewController
-        vc.requestPage = RequestView.accepted
-        vc.rideDetail = rides[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+//        print("tableView clicked")
+//        // -- push to detail view with required data --
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailReqViewController") as! DetailReqViewController
+//        vc.requestPage = RequestView.accepted
+//        vc.rideDetail = rides[indexPath.row]
+//        self.navigationController?.pushViewController(vc, animated: true)
+        loadSpecificTravel(ride_id: self.rides[indexPath.row].rideId)
     }
 }
 
@@ -819,5 +869,31 @@ extension HomeViewController: GMSAutocompleteViewControllerDelegate {
         print("Autocomplete was cancelled.")
         definesPresentationContext = true
         dismiss(animated: true, completion: nil)
+    }
+    
+    func loadSpecificTravel(ride_id: String){
+        let params = ["ride_id": ride_id]
+        let headers = ["X-API-KEY":Common.instance.getAPIKey()]
+        //        HUD.show(to: view)
+        _ = Alamofire.request(APIRouters.travel_specific(params,headers)).responseObject { (response: DataResponse<DriverTravels>) in
+            //            HUD.hide(to: self.view)
+            if response.result.isSuccess{
+                if response.result.value?.status == true , ((response.result.value?.drivertravels) != nil) {
+                    self.travels = (response.result.value?.drivertravels)!
+                    if #available(iOS 11.0, *) {
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TravelsDetailReqViewController") as! TravelsDetailReqViewController
+                        vc.travelDetail = self.travels[0]
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    } else {
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            if response.result.isFailure{
+                Common.showAlert(with: NSLocalizedString("Error!!", comment: ""), message: response.error?.localizedDescription, for: self)
+            }
+        }
     }
 }

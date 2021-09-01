@@ -3,11 +3,12 @@ import UIKit
 struct Group: ResponseObjectSerializable, ResponseCollectionSerializable {
     var groupId = ""
     var adminId = ""
-    var groupName = ""
+//    var groupName = ""
     var driverID = ""
     
     var group_name = ""
     var admin_name = ""
+    var admin_avatar = ""
     var driver_name = ""
     var driver_mobile = ""
     var driver_email = ""
@@ -22,11 +23,12 @@ struct Group: ResponseObjectSerializable, ResponseCollectionSerializable {
         
         groupId = json["group_id"] ?? ""
         adminId  = json["admin_id"] ?? ""
-        groupName = json["group_name"] ?? ""
+//        groupName = json["group_name"] ?? ""
         driverID = json["driver_id"] ?? ""
         
         group_name = json["group_name"] ?? ""
         admin_name = json["admin_name"] ?? ""
+        admin_avatar = json["admin_avatar"] ?? ""
         driver_name = json["driver_name"] ?? ""
         driver_mobile = json["driver_mobile"] ?? ""
         driver_email = json["driver_email"] ?? ""

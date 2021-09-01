@@ -25,6 +25,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet var time: UILabel!
     @IBOutlet var empty_Set_var: UILabel!
     @IBOutlet var date: UILabel!
+    @IBOutlet var notes: UILabel!
     //    @IBOutlet var mapView: GMSMapView!
     
     @IBOutlet var Namelbl: UILabel!
@@ -36,6 +37,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet var Timelbl: UILabel!
     //    @IBOutlet var PickupPointlbl: UILabel!
     @IBOutlet var datelbl: UILabel!
+    @IBOutlet var notelbl: UILabel!
     
     
     @IBOutlet var confirmButton: UIButton!
@@ -70,6 +72,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
     var PassengersStr = "Passenger"
     var PassengersCount = 1
+    var bagsNotes = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +109,9 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         //        PickupPointlbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCPickupPointlbl", comment: "")
         
         datelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCdatelbl", comment: "")
+        
+        notelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "ConfirmRideVC_Notes", comment: "")
+        
         //
         
         confirmButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ConfirmRideVC_confirmButton", comment: ""), for: .normal)
@@ -126,6 +132,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             self.empty_Set_var.text = rideData["booked_set"] as? String ?? ""
             self.date.text = rideData["travel_date"] as? String ?? ""
             self.time.text = rideData["travel_time"] as? String ?? ""
+            self.notes.text = rideData["ride_notes"] as? String ?? ""
             
             if let urlString = URL(string: (rideData["userAvatar"] as? String ?? "")){
                 self.DriverAvatar.kf.setImage(with: urlString)
@@ -150,18 +157,19 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                         print(response.result.value as Any)
                         self.rides = (response.result.value?.rides)!
                         if( self.rides.isEmpty){Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: "No data found.", for: self)}else{
-                        self.driverName.text = self.rides[0].userName
-                        self.pickupLocation.text = self.rides[0].pickupAdress
-                        self.dropLocation.text = self.rides[0].dropAdress
-                        self.driverCity.text = self.rides[0].city
-                        //                        self.PickUpPoint_Var.text = self.rides[0].pickup_point
-                        self.empty_Set_var.text = self.rides[0].bookedSeat
-                        self.date.text = self.rides[0].date
-                        self.time.text = self.rides[0].time
-                        
-                        if let urlString = URL(string: (self.rides[0].userAvatar)){
-                            self.DriverAvatar.kf.setImage(with: urlString)
-                        }
+                            self.driverName.text = self.rides[0].userName
+                            self.pickupLocation.text = self.rides[0].pickupAdress
+                            self.dropLocation.text = self.rides[0].dropAdress
+                            self.driverCity.text = self.rides[0].city
+                            //                        self.PickUpPoint_Var.text = self.rides[0].pickup_point
+                            self.empty_Set_var.text = self.rides[0].bookedSeat
+                            self.date.text = self.rides[0].date
+                            self.time.text = self.rides[0].time
+                            self.notes.text = self.rides[0].ride_notes
+                            
+                            if let urlString = URL(string: (self.rides[0].userAvatar)){
+                                self.DriverAvatar.kf.setImage(with: urlString)
+                            }
                         }}
                     else {
                         Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: "No data found.", for: self)
@@ -216,6 +224,14 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                 textField.keyboardType = .asciiCapableNumberPad
                 
         })
+        //notes
+        alertController!.addTextField(
+            configurationHandler: {(textField: UITextField!) in
+                textField.placeholder = NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "notes_bags_weights", comment: ""),comment: "")
+                //                textField.keyboardType = UIKeyboardType.numberPad
+                textField.keyboardType = .default
+                
+        })
         // platform
         alertController!.addTextField(
             configurationHandler: {(textField: UITextField!) in
@@ -258,7 +274,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                                         }else{
                                             self?.pickUpPoint = theTextFields[0].text!
                                         }
-                                        //                                        self!.AddTravel_Func()
+                                        self?.bagsNotes = theTextFields[3].text!
                                         self!.confirmRequest()
                                     }
         })
@@ -408,6 +424,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             parameters["user_id"] = rideData["userId"] as? String ?? ""
             parameters["ride_id"] = rideData["rideId"]!
             parameters["ride_status"] = "WAITED"
+            parameters["tr_notes"] = self.bagsNotes
             
             let headers = ["X-API-KEY":Common.instance.getAPIKey()]
             // -- show loading --
@@ -428,15 +445,17 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                                 
                                 self.handlePostButton(travel_id: data["travel_id"]! as! NSNumber )
                             }
+                            self.addTravelToFireBase(travel_id: data["travel_id"]! as! NSNumber)
+                            self.updateNotificationFirebase(with:"WAITED", ride_id:self.rideData["rideId"]! as! String, travel_id: (data["travel_id"]! as! NSNumber).stringValue, user_id:self.rideData["userId"] as! String)
+                            self.deletePost(with:self.rideData["rideId"]! as! String)
                         }
                         _ = self.navigationController?.popToRootViewController(animated: true)
-//                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "RequestsViewController") as! RequestsViewController
-//                        vc.requestPage = RequestView.pending
-//                        vc.PlatformString = "PENDING"
-//                        self.navigationController?.pushViewController(vc, animated: true)
+                        //                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "RequestsViewController") as! RequestsViewController
+                        //                        vc.requestPage = RequestView.pending
+                        //                        vc.PlatformString = "PENDING"
+                        //                        self.navigationController?.pushViewController(vc, animated: true)
                     })
                     self.updateRideFirebase(with:"WAITED", ride_id: self.rideData["rideId"]! as! String)
-                    self.updateNotificationFirebase(with:"WAITED", ride_id:self.rideData["rideId"]! as! String, user_id:self.rideData["userId"] as! String)
                     alert.addAction(done)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -472,6 +491,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             parameters["user_id"] = self.rides[0].userId
             parameters["ride_id"] = self.rides[0].rideId
             parameters["ride_status"] = "WAITED"
+            parameters["tr_notes"] = self.bagsNotes
             
             // -- show loading --
             HUD.show(to: view)
@@ -490,11 +510,12 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                             {
                                 self.handlePostButton(travel_id: data["travel_id"]! as! NSNumber )
                             }
+                            self.addTravelToFireBase(travel_id: data["travel_id"]! as! NSNumber)
                         }
                         _ = self.navigationController?.popViewController(animated: true)
                     })
                     self.updateRideFirebase(with:"WAITED", ride_id: self.rides[0].rideId)
-                    self.updateNotificationFirebase(with:"WAITED", ride_id:self.rides[0].rideId, user_id:self.rides[0].userId)
+                    self.updateNotificationFirebase(with:"WAITED", ride_id:self.rides[0].rideId, travel_id: self.rides[0].travelId, user_id:self.rides[0].userId)
                     alert.addAction(done)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -508,11 +529,32 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
+    func deletePost(with travel_id:String) {
+        let commentsRef = Database.database().reference().child("posts")
+        commentsRef.observe(.value, with: { snapshot in
+            
+            for child in snapshot.children {
+                if let childSnapshot = child as? DataSnapshot,
+                    let data = childSnapshot.value as? [String:Any],
+                    let post = Post.parse(childSnapshot.key, data){
+                    if (String(post.travel_id) == travel_id){
+                        childSnapshot.ref.removeValue { error, _ in
+                            print(error)
+                        }
+                    }
+                }
+            }
+        })
+    }
+    
     func updateRideFirebase(with status:String, ride_id:String) {
         let postRef = Database.database().reference().child("rides").child(ride_id)
         let postObject = [
             "timestamp": [".sv":"timestamp"],
-            "ride_status": status] as [String:Any]
+            "ride_status": status,
+            "travel_status": "PENDING",
+            "payment_status": "",
+            "payment_mode": ""] as [String:Any]
         postRef.setValue(postObject, withCompletionBlock: { error, ref in
             if error == nil {
             } else {
@@ -520,11 +562,13 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         })
     }
     
-    func updateNotificationFirebase(with status:String, ride_id:String, user_id:String) {
+    func updateNotificationFirebase(with status:String, ride_id:String, travel_id:String, user_id:String) {
         let postRef = Database.database().reference().child("Notifications").child(user_id).childByAutoId()
         let postObject = [
             "ride_id": ride_id,
-            "text": LocalizationSystem.sharedInstance.localizedStringForKey(key: "Notification_accepted_request", comment: ""),
+            "travel_id": travel_id,
+            //            "text": LocalizationSystem.sharedInstance.localizedStringForKey(key: "Notification_accepted_request", comment: ""),
+            "text": "request_approve",
             "readStatus": "0",
             "timestamp": [".sv":"timestamp"],
             "uid": Auth.auth().currentUser?.uid] as [String:Any]
@@ -533,6 +577,33 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             } else {
             }
         })
+    }
+    
+    func addTravelToFireBase(travel_id: NSNumber) {
+        print("addTravelToFireBase")
+        print(travel_id)
+        
+        guard let userProfile = UserService.currentUserProfile else { return }
+        
+        let postRef = Database.database().reference().child("Travels").child(travel_id.stringValue)
+        let postObject = [
+            "Counters":[
+                "ACCEPTED":0,
+                "COMPLETED":0,
+                "OFFLINE":0,
+                "PAID":0
+            ],
+            "driver_id": Common.instance.getUserId()
+            ] as [String:Any]
+        
+        postRef.setValue(postObject, withCompletionBlock: { error, ref in
+            if error == nil {
+                print("error_nil")
+            } else {
+                print("error_else")
+            }
+        })
+        
     }
     
     func configureMapAndMarkersForRoute(results:[String:Any]) {

@@ -40,8 +40,24 @@ class NotificationTableViewCell: UITableViewCell {
         
         
         usernameLabel.text = username
-        postTextView.text = notification.text
-        subtitleLabel.text = ""
+        //        postTextView.text = notification.text
+        print(notification.text)
+        let elements = ["notification_request",
+                        "notification_request_approve",
+                        "notification_accepted",
+                        "notification_completed",
+                        "notification_cancelled",
+                        "notification_started",
+                        "notification_offline_request",
+                        "notification_offline_approved"]
+        if elements.contains("notification_\(notification.text)") {
+            print("notification_\(notification.text)")
+            postTextView.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "notification_\(notification.text)", comment: "")
+        }
+        else{
+            postTextView.text = notification.text
+        }
+        subtitleLabel.text = notification.createdAt.calenderTimeSinceNow()
         subtitleLabel.isHidden = true
     }
 }

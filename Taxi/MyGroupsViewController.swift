@@ -89,7 +89,7 @@ extension MyGroupsViewController: UITableViewDelegate,UITableViewDataSource {
         
         // -- get current Rides Object --
         let currentObj = groups[indexPath.row]
-        cell.DriverNameVar.text = currentObj.groupName
+        cell.DriverNameVar.text = currentObj.group_name
         cell.DriveMobileVar.text = currentObj.driver_mobile
         cell.DriverMailVar.text = currentObj.driver_email
         cell.DriverStatusVar.text = currentObj.driver_is_online

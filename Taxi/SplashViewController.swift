@@ -15,17 +15,27 @@ class SplashViewController: UIViewController {
     fileprivate var authStateDidChangeHandle: AuthStateDidChangeListenerHandle?
     fileprivate(set) var auth: Auth?
     fileprivate(set) var authUI: FUIAuth?
-
+    
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var registerButton: UIButton!
     @IBOutlet var loginButtonWithFirebase: UIButton!
     
+    @IBOutlet var changelang: UIButton!
+    @IBOutlet var EngLangButton: UIButton!
+    @IBOutlet var AraLangButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        changelang.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LanguageVC_button", comment: ""), for: .normal)
+        EngLangButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LanguageVC_English", comment: ""), for: .normal)
+        EngLangButton.corner(radius: 22.5, color: UIColor.white, width: 1.0)
+        AraLangButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LanguageVC_Arabic", comment: ""), for: .normal)
+        AraLangButton.corner(radius: 22.5, color: UIColor.white, width: 1.0)
+        
         loginButtonWithFirebase.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SplashVC_loginButtonWithFirebase", comment: ""), for: .normal)
         loginButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SplashVC_loginButtonWithFirebase", comment: ""), for: .normal)
-
+        
         // Do any additional setup after loading the view.
         
         loginButton.corner(radius: 22.5, color: UIColor.white, width: 1.0)
@@ -37,41 +47,39 @@ class SplashViewController: UIViewController {
         registerButton.isHidden = true
         //----
     }
+    
     @IBAction func RegistrainonButtonAction(_ sender: Any) {
         auth = Auth.auth()
-            authUI = FUIAuth.defaultAuthUI()
-            authUI?.delegate = self
-            let phoneProvider = FUIPhoneAuth.init(authUI: authUI!)
-            authUI?.providers = [phoneProvider]
+        authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self
+        let phoneProvider = FUIPhoneAuth.init(authUI: authUI!)
+        authUI?.providers = [phoneProvider]
         DispatchQueue.main.async {
             phoneProvider.signIn(withPresenting: self, phoneNumber: nil);
         }
     }
-//    func getImgProfile() {
-//             
-//           Database
-//           .database()
-//           .reference()
-//           .child("users")
-//           .child("profile")
-//             .child(Auth.auth().currentUser!.uid)
-//           .queryOrderedByKey()
-//           .observeSingleEvent(of: .value, with: { snapshot in
-//
-//               guard let dict = snapshot.value as? [String:Any] else {
-//                   print("Error")
-//                   return
-//               }
-//
-//             let photoURL = (dict["photoURL"] as? String)!
-//            UserDefaults.standard.set(photoURL, forKey: "photoURL")
-//
-//              // let priceAd = dict["priceAd"] as? String
-//           })
-//         }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func ChangeLangToEng(_ sender: Any) {
+        LocalizationSystem.sharedInstance.setLanguage(languageCode: "en")
+        
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SplashViewController") as! SplashViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func ChangeLangToAr(_ sender: Any) {
+        LocalizationSystem.sharedInstance.setLanguage(languageCode: "ar")
+        
+        UIView.appearance().semanticContentAttribute = .forceRightToLeft
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SplashViewController") as! SplashViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func loginAsDriverWasPressed(_ sender: Any) {
@@ -137,8 +145,5 @@ extension SplashViewController:FUIAuthDelegate {
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.isToolbarHidden = true
         self.navigationController?.isNavigationBarHidden = true
-       }
-  
-   
-    
+    }
 }

@@ -21,7 +21,7 @@ struct configs{
     static let changePaswrd = "api/user/change_password/format/json"
     static let updateUser   = "api/user/update/format/json"
     static let getProfile   = "api/user/profile/format/json"
-    static let updateRides = "api/user/rides/format/json"
+    static let updateRides = "api/user/rides_ios/format/json"
     static let getRides     = "api/user/rides2/format/json"
     static let getRequestedRides = "api/user/requested_rides/format/json"
     static let requested_ride_id_get = "api/user/requested_ride_id/format/json"
@@ -39,11 +39,19 @@ struct configs{
     static let getAdminGroupInfo = "api/driver/getAdminGroupInfo/format/json"
     static let updateToken = "user/updateToken/format/json"
     static let ChangeGruopName = "api/driver/editgroup/format/json"
-    static let GET_MyGroupLIST = "api/driver/api/driver/getMyGroupList/format/json"
-    //static let getGroupList = "api/driver/api/driver/getGroupList/format/json"
+    static let getMyGroupList = "api/driver/getMyGroupList/format/json"
     static let updateLanguage = "api/user/updateLang/format/json"
     static let getSpecificRide     = "api/user/ride_specific/format/json"
     static let driverRidesUpdate     = "api/user/rides_update/format/json"
+    static let travel_specific     = "api/user/travel_specific/format/json"
+    static let checkallpayments     = "api/user/checkallpayments/format/json"
+    static let approve_payments     = "api/user/approve_payments/format/json"
+    static let driver_mytravel     = "api/user/driver_mytravel/format/json"
+    static let driver_specific_travel     = "api/user/driver_specific_travel/format/json"
+    static let rides_notes = "api/user/rides_notes/format/json"
+    
+    
+    
     
     //
     

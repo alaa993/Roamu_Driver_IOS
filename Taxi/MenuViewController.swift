@@ -296,7 +296,7 @@ extension MenuViewController: UITableViewDelegate,UITableViewDataSource {
             self.revealViewController().setFront(nav, animated: true)
             self.revealViewController().pushFrontViewController(nav, animated: true)
         case 17:
-            let items = ["Let me recommend you this application\n","https://apps.apple.com/us/app/roamu-driver/id1509211736"]
+            let items = ["Let me recommend you this application\n","http://onelink.to/ayn86m"]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
             present(ac, animated: true)
         case 18:

@@ -38,6 +38,7 @@ struct Travel: ResponseObjectSerializable, ResponseCollectionSerializable {
     var Travels_Count = ""
     var Travel_Status = ""
     var car_type = ""
+    var tr_notes = ""
     
     init?(response: HTTPURLResponse, representation: Any) {
         guard let json = representation as? [String: String]
@@ -73,6 +74,7 @@ struct Travel: ResponseObjectSerializable, ResponseCollectionSerializable {
         vehicle_no = json["vehicle_no"] ?? ""
         Travel_Status = json["travel_status"] ?? ""
         car_type = json["car_type"] ?? ""
+        tr_notes = json["tr_notes"] ?? ""
         
     }
     

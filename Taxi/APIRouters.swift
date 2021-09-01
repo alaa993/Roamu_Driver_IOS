@@ -29,6 +29,7 @@ enum APIRouters: URLRequestConvertible {
     static let addUserToGroup = configs.addUserToGroup
     static let delUserFromGroup = configs.delUserFromGroup
     static let getGroupList = configs.getGroupList
+    static let getMyGroupList = configs.getMyGroupList
     static let getDriverInfo = configs.getDriverInfo
     static let getAdminGroupInfo = configs.getAdminGroupInfo
     static let updateToken    = configs.updateToken
@@ -37,6 +38,13 @@ enum APIRouters: URLRequestConvertible {
     static let getSpecificRide    = configs.getSpecificRide
     static let GetDriverTravels    = configs.GetDriverTravels
     static let driverRidesUpdate    = configs.driverRidesUpdate
+    static let travel_specific    = configs.travel_specific
+    static let checkallpayments     = configs.checkallpayments
+    static let approve_payments     = configs.approve_payments
+    static let driver_mytravel     = configs.driver_mytravel
+    static let driver_specific_travel     = configs.driver_specific_travel
+    static let rides_notes = configs.rides_notes
+    
     
     
     
@@ -66,11 +74,19 @@ enum APIRouters: URLRequestConvertible {
     case getAdminGroupInfo([String:Any],[String:String])
     case UpdateToken([String:String],[String:String])
     case ChangeGruopName([String:Any],[String:String])
-    case GET_MyGroupLIST([String:Any],[String:String])
+    case getMyGroupList([String:Any],[String:String])
     case UpdateLanguage([String:String],[String:String])
     case getSpecificRide([String:String],[String:String])
     case GetDriverTravels([String:Any],[String:String])
     case driverRidesUpdate([String:Any],[String:String])
+    case travel_specific([String:Any],[String:String])
+    case checkallpayments([String:Any],[String:String])
+    case approve_payments([String:Any],[String:String])
+    case driver_mytravel([String:Any],[String:String])
+    case driver_specific_travel([String:Any],[String:String])
+    case rides_notes([String:Any],[String:String])
+    
+    
     //requested_ride_id_get
     
     
@@ -116,7 +132,7 @@ enum APIRouters: URLRequestConvertible {
                 
             case .getRequestedRides(let params, let headers):
                 return (APIRouters.getRequestedRides, params, .get, headers)
-           
+                
             case .requested_ride_id_get(let params, let headers):
                 return (APIRouters.requested_ride_id_get, params, .get, headers)
                 
@@ -128,7 +144,7 @@ enum APIRouters: URLRequestConvertible {
                 
             case .addUserToGroup(let params, let headers):
                 return (APIRouters.addUserToGroup, params, .post, headers)
-            
+                
             case .delUserFromGroup(let params, let headers):
                 return (APIRouters.delUserFromGroup, params, .post, headers)
                 
@@ -147,8 +163,8 @@ enum APIRouters: URLRequestConvertible {
             case .ChangeGruopName(let params, let headers):
                 return (APIRouters.ChangeGruopName, params, .post, headers)
                 
-            case .GET_MyGroupLIST(let params, let headers):
-                return (APIRouters.GetTravels, params, .get, headers)
+            case .getMyGroupList(let params, let headers):
+                return (APIRouters.getMyGroupList, params, .get, headers)
                 
             case .UpdateLanguage(let params, let headers):
                 return (APIRouters.updateLanguage, params, .post, headers)
@@ -161,6 +177,27 @@ enum APIRouters: URLRequestConvertible {
                 
             case .driverRidesUpdate(let params, let headers):
                 return (APIRouters.driverRidesUpdate, params, .post, headers)
+                
+            case .travel_specific(let params, let headers):
+                return (APIRouters.travel_specific, params, .get, headers)
+                
+            case .checkallpayments(let params, let headers):
+                return (APIRouters.checkallpayments, params, .get, headers)
+                
+            case .approve_payments(let params, let headers):
+                return (APIRouters.approve_payments, params, .get, headers)
+                
+            case .driver_mytravel(let params, let headers):
+                return (APIRouters.driver_mytravel, params, .get, headers)
+                
+            case .driver_specific_travel(let params, let headers):
+                return (APIRouters.driver_specific_travel, params, .get, headers)
+                
+            case .rides_notes(let params, let headers):
+                return (APIRouters.rides_notes, params, .get, headers)
+                
+                
+                
             }
             
             

@@ -513,6 +513,7 @@ extension RequestsViewController: UITableViewDelegate,UITableViewDataSource {
                                   "emptySet":rides[indexPath.row].emptySet,
                                   "travel_date":rides[indexPath.row].date,
                                   "travel_time":rides[indexPath.row].time,
+                                  "ride_notes":rides[indexPath.row].ride_notes,
                                   "userAvatar":rides[indexPath.row].userAvatar,
                                   "city":rides[indexPath.row].city,
                                   "amount":rides[indexPath.row].amount]

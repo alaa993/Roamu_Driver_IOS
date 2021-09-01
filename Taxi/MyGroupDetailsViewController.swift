@@ -41,6 +41,8 @@ class MyGroupDetailsViewController: UIViewController {
         //
         
         loadMyGroupList()
+        
+        loadGroupList()
     }
     
     @IBAction func cancelWasClicked(_ sender: UIButton) {
@@ -82,9 +84,10 @@ class MyGroupDetailsViewController: UIViewController {
     func loadMyGroupList(){
         let params = ["user_id":Common.instance.getUserId()]
         let headers = ["X-API-KEY":Common.instance.getAPIKey()]
-        
+        print("ibrahim123")
+        print(Common.instance.getUserId())
         //HUD.show(to: view)
-        _ = Alamofire.request(APIRouters.GET_MyGroupLIST(params,headers)).responseObject { (response: DataResponse<Groups>) in
+        _ = Alamofire.request(APIRouters.getMyGroupList(params,headers)).responseObject { (response: DataResponse<Groups>) in
             //HUD.hide(to: self.view)
             print("ibrahim")
             print(response)
@@ -94,7 +97,7 @@ class MyGroupDetailsViewController: UIViewController {
                     self.groups = (response.result.value?.groups)!
                     if self.groups.count > 0 {
                         self.AdminNameVar.text = self.groups[0].admin_name
-                        self.GroupNameVar.text = self.groups[0].groupName
+                        self.GroupNameVar.text = self.groups[0].group_name
                     }
                 } else {
                     Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: "No data found.", for: self)
@@ -128,7 +131,7 @@ extension MyGroupDetailsViewController: UITableViewDelegate,UITableViewDataSourc
         
         // -- get current Rides Object --
         let currentObj = groups[indexPath.row]
-        cell.DriverNameVar.text = currentObj.groupName
+        cell.DriverNameVar.text = currentObj.group_name
         cell.DriveMobileVar.text = currentObj.driver_mobile
         cell.DriverMailVar.text = currentObj.driver_email
         cell.DriverStatusVar.text = currentObj.driver_is_online

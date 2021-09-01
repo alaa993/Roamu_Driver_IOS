@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import MessageUI
 
-class ContactUsViewController: UIViewController {
+class ContactUsViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet var TextFieldName: UITextField!
-    @IBOutlet var TextFieldEmail: UITextField!
+//    @IBOutlet var TextFieldEmail: UITextField!
     @IBOutlet var TextFieldDetails: UITextField!
     @IBOutlet var ButtonSend: UIButton!
 
@@ -46,8 +47,7 @@ class ContactUsViewController: UIViewController {
         self.TextFieldName.cornerRadius(radius: 20.0, andPlaceholderString: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ContactUsVC_Name", comment: ""),comment: ""))
         self.TextFieldName.paddedTextField(frame: CGRect(x: 0, y: 0, width: 25, height: self.TextFieldName.frame.height))
         
-        self.TextFieldEmail.cornerRadius(radius: 20.0, andPlaceholderString: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ContactUsVC_Email", comment: ""),comment: ""))
-        self.TextFieldEmail.paddedTextField(frame: CGRect(x: 0, y: 0, width: 25, height: self.TextFieldEmail.frame.height))
+//
         
         self.TextFieldDetails.cornerRadius(radius: 20.0, andPlaceholderString: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ContactUsVC_Details", comment: ""),comment: ""))
         self.TextFieldDetails.paddedTextField(frame: CGRect(x: 0, y: 0, width: 25, height: TextFieldDetails.frame.height))
@@ -59,15 +59,32 @@ class ContactUsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func sendMailClicked(_ sender: Any) {
+        print("sendMailClicked")
+        
+        let subject = "Call us"
+//        let body = "Name: \(String(describing: TextFieldName.text))\n Description:  \(String(describing: TextFieldDetails.text))"
+        let body = "Name: " + TextFieldName.text! + "\n" + "Description: " + TextFieldDetails.text!
+        
+        let encodedParams = "subject=\(subject)&body=\(body)"
+        let mailtoString = "mailto:info@roamu.net?\(encodedParams)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        print(mailtoString)
+        let mailtoUrl = URL(string: mailtoString!)!
+        if UIApplication.shared.canOpenURL(mailtoUrl) {
+            UIApplication.shared.open(mailtoUrl, options: [:])
+        }
+        
+//        let subject = "Call us"
+//        let body = "The awesome body"
+//        let encodedParams = "subject=\(subject)&body=\(body)"
+//        let url = "mailto:info@roamu.com?\(encodedParams)"
+//
+//        print(url)
+//
+//        if let emailURL = NSURL(string: url) {
+//            if UIApplication.shared.canOpenURL(emailURL as URL) {
+//                UIApplication.shared.open(emailURL as URL)
+//            }
+//        }
     }
-    */
-
 }

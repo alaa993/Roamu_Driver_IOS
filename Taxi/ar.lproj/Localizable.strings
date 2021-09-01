@@ -33,7 +33,7 @@
 "LanguageVC_English" = "اللغة الانكليزية";
 "LanguageVC_Arabic" = "اللغة العربية";
 
-"SplashVC_loginButtonWithFirebase" = "تسجيل الدخول";
+"SplashVC_loginButtonWithFirebase" = "تسجيل الدخول أو إنشاء حساب";
 
 "SignUpVC_signUpButton" = "إنشاء حساب";
 "SignUpVC_nameText" = "الإسم";
@@ -109,6 +109,7 @@
 "DetailReqVCEmptySetlbl" = "عدد المقاعد الفارغة";
 "DetailReqVCTitle" = "معلومات الرحلة";
 "DetailReqVC_Complete" = "إنهاء";
+"DetailReqVC_Approve_All" = "قبول جميع الدفعات";
 "DetailReqVC_Cancel" = "إلغاء";
 "DetailReqVC_Track" = "تتبع مسار الرحلة";
 "DetailReqVC_Start" = "ابدأ الرحلة";
@@ -125,10 +126,11 @@
 "ConfirmRideVC_Vehiclelbl" = "لوحة السيارة";
 "ConfirmRideVC_Smokedlbl" = "مدخن";
 "ConfirmRideVC_Distancelbl" = "المسافة";
-"ConfirmRideVC_confirmButton" = "تآكيد الحجز";
+"ConfirmRideVC_confirmButton" = "قبول الحجز";
 "ConfirmRideVC_city" = "المدينة";
 "ConfirmRideVC_Alert" = "تنبيه";
 "ConfirmRideVC_AlertDetail" = "رجاءا اختر عدد المقاعد اكثر من عدد الركاب";
+"ConfirmRideVC_Notes" = "ملاحظات المسافر";
 
 "TransactionsVC_Title" = "سجل التنقلات";
 
@@ -240,3 +242,17 @@
 
 "Notification_ride_updated" = ": تم تحديث الرحلة";
 "Notification_accepted_request" = "تم قبول طلبكم";
+
+"notification_request" = "يريد الزبون أن يسافر معكم ";
+"notification_request_approve" = "تم تأكيد الطلب من قبل الزبون";
+"notification_accepted" = "قبل الزبون طلبكم";
+"notification_completed" = "تم الوصول بنجاح";
+"notification_cancelled" = "يعتذر الزبون عن قبول طلبكم!";
+"notification_started" = "بدأت الرحلة";
+"notification_offline_request" = "يريد الزبون الدفع نقدا";
+"notification_offline_approved" = "تأكيد الدفع نقدا";
+
+"notes_bags_weights" = "(اختياري) ملاحظات، عدد الحقائب";
+"notes" = "الملاحظات";
+
+"invalid_phone_number" = "رقم الهاتف غير صحيح ، يرجى المحاولة مرة أخرى!";

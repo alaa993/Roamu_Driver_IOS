@@ -20,6 +20,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var fetchingMore = false
     var endReached = false
     let leadingScreensForBatching:CGFloat = 3.0
+    var notification_number = 0
     
     var refreshControl:UIRefreshControl!
     
@@ -27,7 +28,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var seeNewPostsButtonTopAnchor:NSLayoutConstraint!
     
     var lastUploadedPostID:String?
-    var rides = [Ride]()
+    var travels = [DriverTravel]()
     
     //
     var postsRef:DatabaseReference {
@@ -277,20 +278,21 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        loadSpecificRide(ride_id: self.notifications[indexPath.row].ride_id, notification_id: self.notifications[indexPath.row].id)
+        notification_number = indexPath.row
+        loadSpecificTravel(ride_id: self.notifications[indexPath.row].ride_id, notification_id: self.notifications[indexPath.row].id)
     }
     
     func updateNotificationFirebase(with status:String, ride_id:String, user_id:String, notification_id:String) {
-      
-
+        
+        
         
         let postRef = Database.database().reference().child("Notifications").child(user_id).child(notification_id)
         let postObject = [
-//            "ride_id": ride_id,
-//            "text": "Ride Updated",
+            //            "ride_id": ride_id,
+            //            "text": "Ride Updated",
             "readStatus": "1"//,
-//            "timestamp": [".sv":"timestamp"],
-//            "uid": Auth.auth().currentUser?.uid
+            //            "timestamp": [".sv":"timestamp"],
+            //            "uid": Auth.auth().currentUser?.uid
             ] as [String:Any]
         postRef.updateChildValues(postObject, withCompletionBlock: { error, ref in
             if error == nil {
@@ -299,37 +301,19 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         })
     }
     
-    func loadSpecificRide(ride_id: String, notification_id:String){
+    func loadSpecificTravel(ride_id: String, notification_id:String){
         let params = ["ride_id": ride_id]
         let headers = ["X-API-KEY":Common.instance.getAPIKey()]
         //        HUD.show(to: view)
-        _ = Alamofire.request(APIRouters.getSpecificRide(params,headers)).responseObject { (response: DataResponse<Rides>) in
+        _ = Alamofire.request(APIRouters.travel_specific(params,headers)).responseObject { (response: DataResponse<DriverTravels>) in
             //            HUD.hide(to: self.view)
             if response.result.isSuccess{
-                if response.result.value?.status == true , ((response.result.value?.rides) != nil) {
-                    self.rides = (response.result.value?.rides)!
+                if response.result.value?.status == true , ((response.result.value?.drivertravels) != nil) {
+                    self.travels = (response.result.value?.drivertravels)!
                     if #available(iOS 11.0, *) {
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DetailReqViewController") as! DetailReqViewController
-                        vc.rideDetail = self.rides[0]
-                        var requestPage:RequestView?
-                        if self.rides[0].status == "PENDING"
-                        {
-                            requestPage = RequestView.pending
-                        }
-                        if self.rides[0].status == "ACCEPTED"
-                        {
-                            requestPage = RequestView.accepted
-                        }
-                        if self.rides[0].status == "COMPLETED"
-                        {
-                            requestPage = RequestView.completed
-                        }
-                        if self.rides[0].status == "CANCELLED"
-                        {
-                            requestPage = RequestView.cancelled
-                        }
-                        vc.requestPage = requestPage
-                        self.updateNotificationFirebase(with:"WAITED", ride_id:self.rides[0].rideId, user_id:self.rides[0].driverId, notification_id: notification_id)
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TravelsDetailReqViewController") as! TravelsDetailReqViewController
+                        vc.travelDetail = self.travels[0]
+                        self.updateNotificationFirebase(with:"WAITED", ride_id:self.notifications[self.notification_number].ride_id, user_id:self.travels[0].driverId, notification_id: notification_id)
                         self.navigationController?.pushViewController(vc, animated: true)
                     } else {
                     }

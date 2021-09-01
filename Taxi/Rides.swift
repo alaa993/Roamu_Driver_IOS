@@ -32,6 +32,7 @@ struct Ride: ResponseObjectSerializable, ResponseCollectionSerializable {
     var pickup_point = ""
     var Travel_Status = ""
     var car_type = ""
+    var ride_notes = ""
     
     init?(response: HTTPURLResponse, representation: Any) {
         guard let json = representation as? [String: String]
@@ -65,6 +66,7 @@ struct Ride: ResponseObjectSerializable, ResponseCollectionSerializable {
         pickup_point = json["pickup_point"] ?? ""
         Travel_Status = json["travel_status"] ?? ""
         car_type = json["car_type"] ?? ""
+        ride_notes = json["ride_notes"] ?? ""
         //rides2
     }
     

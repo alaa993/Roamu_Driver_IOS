@@ -144,16 +144,16 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
                         print("User display name changed!")
                         print("h4")
                         HUD.hide(to: self.view)
-                        self.saveProfile(profileImageURL: url!) { success in
-                            if success {
-                                print("success")
-                                print("h5")
-                                //  self.requsetSignupForDB(photoURL: (self.changeRequest?.photoURL!.absoluteString)!)
-                                //self.dismiss(animated: true, completion: nil)
-                            } else {
-                                print("error")
-                            }
-                        }
+//                        self.saveProfile(profileImageURL: url!) { success in
+//                            if success {
+//                                print("success")
+//                                print("h5")
+//                                //  self.requsetSignupForDB(photoURL: (self.changeRequest?.photoURL!.absoluteString)!)
+//                                //self.dismiss(animated: true, completion: nil)
+//                            } else {
+//                                print("error")
+//                            }
+//                        }
                     } else {
                         //                        print("Error: \(error!.localizedDescription)")
                         print("error")

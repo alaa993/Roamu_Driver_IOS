@@ -73,6 +73,7 @@
 		FB48AF4824B1C81C001EBE78 /* GoogleApiHelper+Nearby.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48AF4724B1C81C001EBE78 /* GoogleApiHelper+Nearby.swift */; };
 		FB48AF4A24B1C855001EBE78 /* NearByEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48AF4924B1C855001EBE78 /* NearByEnum.swift */; };
 		FB48AF4C24B1C88A001EBE78 /* GoogleSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB48AF4B24B1C88A001EBE78 /* GoogleSearchViewController.swift */; };
+		FB4A3BEA26932F7E00E7E466 /* RidesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4A3BE926932F7D00E7E466 /* RidesCell.swift */; };
 		FB4DA3892497D986002F34C6 /* RoundedWhiteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4DA3882497D986002F34C6 /* RoundedWhiteButton.swift */; };
 		FB4DA38B2497D9AC002F34C6 /* PlatformViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4DA38A2497D9AB002F34C6 /* PlatformViewController.swift */; };
 		FB4DA38D2497D9D3002F34C6 /* SeeNewPostsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4DA38C2497D9D3002F34C6 /* SeeNewPostsButton.swift */; };
@@ -91,6 +92,8 @@
 		FB518B672541E12F00E9116F /* UserCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB518B662541E12F00E9116F /* UserCommentsViewController.swift */; };
 		FB5DC00925A4BF480049EDF8 /* AcceptRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5DC00825A4BF480049EDF8 /* AcceptRequestsViewController.swift */; };
 		FB5DC00B25A4BFB90049EDF8 /* AcceptDetailReqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5DC00A25A4BFB90049EDF8 /* AcceptDetailReqViewController.swift */; };
+		FBA08FFF26C9910A0092809D /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA08FFE26C9910A0092809D /* NotesCell.swift */; };
+		FBA0900126C9919E0092809D /* TravelsNotesReqViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA0900026C9919E0092809D /* TravelsNotesReqViewController.swift */; };
 		FBA59894256AA1020008C22E /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA59893256AA1020008C22E /* CommentTableViewCell.xib */; };
 		FBA59896256AA1430008C22E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA59895256AA1430008C22E /* CommentTableViewCell.swift */; };
 		FBA59898256AA1C20008C22E /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA59897256AA1C20008C22E /* NotificationTableViewCell.swift */; };
@@ -179,6 +182,7 @@
 		FB48AF4724B1C81C001EBE78 /* GoogleApiHelper+Nearby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleApiHelper+Nearby.swift"; sourceTree = "<group>"; };
 		FB48AF4924B1C855001EBE78 /* NearByEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByEnum.swift; sourceTree = "<group>"; };
 		FB48AF4B24B1C88A001EBE78 /* GoogleSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSearchViewController.swift; sourceTree = "<group>"; };
+		FB4A3BE926932F7D00E7E466 /* RidesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidesCell.swift; sourceTree = "<group>"; };
 		FB4DA3882497D986002F34C6 /* RoundedWhiteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedWhiteButton.swift; sourceTree = "<group>"; };
 		FB4DA38A2497D9AB002F34C6 /* PlatformViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformViewController.swift; sourceTree = "<group>"; };
 		FB4DA38C2497D9D3002F34C6 /* SeeNewPostsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeNewPostsButton.swift; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 		FB518B662541E12F00E9116F /* UserCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentsViewController.swift; sourceTree = "<group>"; };
 		FB5DC00825A4BF480049EDF8 /* AcceptRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRequestsViewController.swift; sourceTree = "<group>"; };
 		FB5DC00A25A4BFB90049EDF8 /* AcceptDetailReqViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptDetailReqViewController.swift; sourceTree = "<group>"; };
+		FBA08FFE26C9910A0092809D /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
+		FBA0900026C9919E0092809D /* TravelsNotesReqViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelsNotesReqViewController.swift; sourceTree = "<group>"; };
 		FBA59893256AA1020008C22E /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		FBA59895256AA1430008C22E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		FBA59897256AA1C20008C22E /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
@@ -364,6 +370,8 @@
 				A4C6540A1E6E8ABE001B9CB6 /* RequestsCell.swift */,
 				A4CAF6B71E72A99A00F215E5 /* PendingReqCell.swift */,
 				A4CAF6B91E72B25D00F215E5 /* AcceptedReqCell.swift */,
+				FB4A3BE926932F7D00E7E466 /* RidesCell.swift */,
+				FBA08FFE26C9910A0092809D /* NotesCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -402,6 +410,7 @@
 				FB5DC00A25A4BFB90049EDF8 /* AcceptDetailReqViewController.swift */,
 				FB066D5D2613BB9E00E88D64 /* TravelsReqViewController.swift */,
 				FB066D5F2613BBD500E88D64 /* TravelsDetailReqViewController.swift */,
+				FBA0900026C9919E0092809D /* TravelsNotesReqViewController.swift */,
 			);
 			name = RequestsController;
 			sourceTree = "<group>";
@@ -793,6 +802,7 @@
 				69C14F1E2458B45C009C3A15 /* ProvisionsViewController.swift in Sources */,
 				A4A47DF31E7F992200EA19F3 /* APIRouters.swift in Sources */,
 				A4AD97C81E6A82C900D99126 /* AnimationUtils.swift in Sources */,
+				FBA08FFF26C9910A0092809D /* NotesCell.swift in Sources */,
 				A407D88E1E6D349200EE18FC /* SWRevealViewController.m in Sources */,
 				A4B220041E975BC200F68C1A /* ProfileDetailViewController.swift in Sources */,
 				A407D8921E6D3A3700EE18FC /* MenuViewController.swift in Sources */,
@@ -824,6 +834,7 @@
 				694FAB52244E2411009783B8 /* SearchViewController.swift in Sources */,
 				A4CAF6B81E72A99A00F215E5 /* PendingReqCell.swift in Sources */,
 				FBA59896256AA1430008C22E /* CommentTableViewCell.swift in Sources */,
+				FB4A3BEA26932F7E00E7E466 /* RidesCell.swift in Sources */,
 				691D76D42458ADBF00A13C41 /* PassengersViewController.swift in Sources */,
 				6944AA85246810CB00A7AC88 /* GroupManagementViewController.swift in Sources */,
 				FB066D602613BBD500E88D64 /* TravelsDetailReqViewController.swift in Sources */,
@@ -831,6 +842,7 @@
 				FBA598A4256AB3C20008C22E /* NotificationsViewController.swift in Sources */,
 				FB4DA3912497DA11002F34C6 /* HelperExtensions.swift in Sources */,
 				FB4DA38F2497D9F2002F34C6 /* LoadingCell.swift in Sources */,
+				FBA0900126C9919E0092809D /* TravelsNotesReqViewController.swift in Sources */,
 				A4C654091E6E8A81001B9CB6 /* RequestsViewController.swift in Sources */,
 				A4CAF6B11E72890100F215E5 /* LocationManager.swift in Sources */,
 				FBA598A2256AB3990008C22E /* NominateDriverViewController.swift in Sources */,
@@ -988,7 +1000,7 @@
 				INFOPLIST_FILE = Taxi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.10;
+				MARKETING_VERSION = 2.2.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.roamudriver.net.RoamuDriver;
 				PRODUCT_NAME = roamuDriver;
 				SWIFT_OBJC_BRIDGING_HEADER = "Taxi/TaxiDriver-Bridging-Header.h";
@@ -1010,7 +1022,7 @@
 				INFOPLIST_FILE = Taxi/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.10;
+				MARKETING_VERSION = 2.2.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.roamudriver.net.RoamuDriver;
 				PRODUCT_NAME = roamuDriver;
 				SWIFT_OBJC_BRIDGING_HEADER = "Taxi/TaxiDriver-Bridging-Header.h";

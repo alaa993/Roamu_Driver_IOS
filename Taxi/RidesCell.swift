@@ -1,14 +1,15 @@
 //
-//  RequestsCell.swift
-//  Taxi
+//  RidesCell.swift
+//  TaxiDriver
 //
-//  Created by Bhavin on 07/03/17.
-//  Copyright © 2017 icanStudioz. All rights reserved.
+//  Created by ibrahim.marie on 7/5/21.
+//  Copyright © 2021 icanStudioz. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class RequestsCell: UITableViewCell {
+class RidesCell: UITableViewCell {
 
     @IBOutlet var streetFrom: UILabel!
     @IBOutlet var streetTo: UILabel!
@@ -37,6 +38,8 @@ class RequestsCell: UITableViewCell {
     @IBOutlet var DriverNamelbl: UILabel!
     @IBOutlet var TotalFarelbl: UILabel!
     @IBOutlet var ReqTypelbl: UILabel!
+    
+    @IBOutlet var acceptButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

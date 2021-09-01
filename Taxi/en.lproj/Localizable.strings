@@ -33,7 +33,7 @@
 "LanguageVC_English" = "English";
 "LanguageVC_Arabic" = "Arabic";
 
-"SplashVC_loginButtonWithFirebase" = "Login";
+"SplashVC_loginButtonWithFirebase" = "Login or Sign Up";
 
 "SignUpVC_signUpButton" = "Sign Up";
 "SignUpVC_nameText" = "Name";
@@ -109,6 +109,7 @@
 "DetailReqVCEmptySetlbl" = "Empty Seat";
 "DetailReqVCTitle" = "Ride Information";
 "DetailReqVC_Complete" = "COMPLETE";
+"DetailReqVC_Approve_All" = "Approve All Payments";
 "DetailReqVC_Cancel" = "CANCEL";
 "DetailReqVC_Track" = "TRACK RIDE";
 "DetailReqVC_Start" = "Start Travel";
@@ -128,6 +129,7 @@
 "ConfirmRideVC_city" = "City";
 "ConfirmRideVC_Alert" = "Alert";
 "ConfirmRideVC_AlertDetail" = "Please select Number of Seats more than passengers Number";
+"ConfirmRideVC_Notes" = "Passenger's notes";
 
 "TransactionsVC_Title" = "Transaction History";
 
@@ -244,4 +246,18 @@ or to another city looking for available means of transportation At the appropri
 
 "Notification_ride_updated" = "Ride Updated: ";
 "Notification_accepted_request" = "Accepted Your Request";
+
+"notification_request" = "Client wants to travel with you";
+"notification_request_approve" = "Client approved your request!";
+"notification_accepted" = "the client accepted your request!";
+"notification_completed" = "Successful Arrivals";
+"notification_cancelled" = "the client apologizes for cancelling the request";
+"notification_started" = "Travel Started!";
+"notification_offline_request" = "the Client wants to pay cash!";
+"notification_offline_approved" = "the driver Accepted your offline payment";
+
+"notes_bags_weights" = "Notes, Number of Bags (Optional)";
+"notes" = "Notes";
+
+"invalid_phone_number" = "Invalid Phone Number, please try Again!";
 
