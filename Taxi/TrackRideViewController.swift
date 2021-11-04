@@ -62,7 +62,7 @@ class TrackRideViewController: UIViewController {
         // -- set camera position --
         let camera = GMSCameraPosition.camera(withLatitude: latitude,
                                               longitude: longitude,
-                                              zoom:18)
+                                              zoom:19)
         mapView.animate(to: camera)
     }
     

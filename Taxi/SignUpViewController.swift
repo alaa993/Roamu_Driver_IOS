@@ -11,6 +11,7 @@ import Firebase
 
 class SignUpViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet var nameText: UITextField!
+    @IBOutlet var lastNameText: UITextField!
     @IBOutlet var emailText: UITextField!
     @IBOutlet var SocialStatus: UITextField!
     @IBOutlet var signUpButton: UIButton!
@@ -32,6 +33,8 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
     let SocialStatusPickerData = [String](arrayLiteral: LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_SocialStatusEmployess", comment: ""),LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_SocialStatusStudent", comment: ""),LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_SocialStatusRegular", comment: ""))//["Yes","No"]
     var SocialStatusString = LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_SocialStatusRegular", comment: "")
     
+    var is_image_selected = false
+    
     
     //------------------------------------------------------------------------------------------------------------------------------------------
     // MARK:- View Controller Life Cycle
@@ -45,6 +48,9 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
         // Do any additional setup after loading the view.
         nameText.cornerRadius(radius: 20.0, andPlaceholderString: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_nameText", comment: ""),comment: ""))
         nameText.paddedTextField(frame: CGRect(x: 0, y: 0, width: 25, height: nameText.frame.height))
+        
+        lastNameText.cornerRadius(radius: 20.0, andPlaceholderString: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_last_nameText", comment: ""),comment: ""))
+        lastNameText.paddedTextField(frame: CGRect(x: 0, y: 0, width: 25, height: lastNameText.frame.height))
         
         emailText.cornerRadius(radius: 20.0, andPlaceholderString: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_emailText", comment: ""),comment: ""))
         emailText.paddedTextField(frame: CGRect(x: 0, y: 0, width: 25, height: emailText.frame.height))
@@ -131,7 +137,17 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
     }
     
     @IBAction func registerWasPressed(_ sender: Any) {
-        handleSignUp()
+        if (nameText.text?.count == 0 || lastNameText.text?.count == 0) {
+            Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString("Please fill required fields.",comment: ""), for: self)
+            
+        }
+        else if (is_image_selected == false){
+            Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_pickup_image", comment: ""),comment: ""), for: self)
+            
+        }
+        else {
+            handleSignUp()
+        }
     }
     
     func requsetSignupForDB(photoURL:String){
@@ -148,7 +164,15 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
         {
             socialStatusVar = "Student"
         }
-        if validateTextFields() {
+        if (nameText.text?.count == 0 || lastNameText.text?.count == 0) {
+            Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString("Please fill required fields.",comment: ""), for: self)
+            
+        }
+        else if (is_image_selected == false){
+            Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_pickup_image", comment: ""),comment: ""), for: self)
+            
+        }
+        else {
             let manager = LocationManager.sharedInstance
             manager.reverseGeocodeLocationWithLatLong(latitude: manager.latitude, longitude: manager.longitude) { (response, placemark, str) in
                 if response != nil {
@@ -161,7 +185,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
                     
                     var params = [String:Any]()
                     params["email"] = self.emailText.text!
-                    params["name"]  = self.nameText.text!
+                    params["name"]  = self.nameText.text! + " " + self.lastNameText.text!
                     params["mobile"] = self.UserData["mobile"]!//self.mobileNumText.text self.changeRequest?.photoURL
                     params["password"] = self.UserData["password"]!//self.passwordText.text
                     params["latitude"] = response?["latitude"]
@@ -201,7 +225,6 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
                 }
             }
         }
-        
     }
     
     func handleSignUp() {
@@ -224,7 +247,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
             print("dddddddd",url)
             if url != nil {
                 // let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                self.changeRequest?.displayName = self.nameText.text!
+                self.changeRequest?.displayName = self.nameText.text! + " " + self.lastNameText.text!
                 self.changeRequest?.photoURL = url
                 
                 
@@ -233,7 +256,7 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
                         print("User display name changed!")
                         print("h4")
                         HUD.hide(to: self.view)
-                        self.saveProfile(username: self.nameText.text!, profileImageURL: url!) { success in
+                        self.saveProfile(username: self.nameText.text! + " " + self.lastNameText.text!, profileImageURL: url!) { success in
                             if success {
                                 print("success")
                                 print("h5")
@@ -268,7 +291,12 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
                 let encodedData = NSKeyedArchiver.archivedData(withRootObject: userData)
                 UserDefaults.standard.set(encodedData, forKey: "user")
                 UserDefaults.standard.set(data["key"], forKey: "key")
-                self.moveToDashboard()
+//                self.moveToDashboard()
+                if userData.brand?.count == 0 {
+                    self.setVehicleInfo()
+                } else {
+                    self.moveToDashboard()
+                }
             }
         }, failure: { (message) in
             HUD.hide(to: self.view)
@@ -287,6 +315,14 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
         let revealController = SWRevealViewController(rearViewController: menu, frontViewController: dashboardNav)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = revealController
+    }
+    
+    func setVehicleInfo() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "VehicleTableViewController") as! VehicleTableViewController
+        vc.isFromLogin = true
+        let nav = UINavigationController(rootViewController: vc)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = nav
     }
     
     func saveProfile(username:String, profileImageURL:URL, completion: @escaping ((_ success:Bool)->())) {
@@ -366,8 +402,12 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
     }
     
     func validateTextFields() -> Bool {
-        if nameText.text?.count == 0 {
+        if (nameText.text?.count == 0 || lastNameText.text?.count == 0) {
             Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString("Please fill required fields.",comment: ""), for: self)
+            return false
+        }
+        else if (is_image_selected == false){
+            Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpVC_pickup_image", comment: ""),comment: ""), for: self)
             return false
         }
         else {
@@ -378,13 +418,14 @@ class SignUpViewController: UIViewController, UIPickerViewDelegate {
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        is_image_selected = false;
         picker.dismiss(animated: true, completion: nil)
     }
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         self.profileImageView.image = pickedImage
-        
+        is_image_selected = true;
         picker.dismiss(animated: true, completion: nil)
     }
 }

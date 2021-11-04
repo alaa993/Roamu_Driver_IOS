@@ -80,7 +80,7 @@ class MapViewController: UIViewController, TaxiInfoDelegate {
         
         let camera = GMSCameraPosition.camera(withLatitude: latitude,
                                               longitude: longitude,
-                                              zoom:12)
+                                              zoom:19)
         
         mapview.animate(to: camera)
         mapview.isMyLocationEnabled = true
@@ -424,6 +424,7 @@ extension MapViewController:GMSMapViewDelegate,UITextFieldDelegate {
                        "driverId": rides!.driverId,
                        "pickup": rides!.pickupAdress,
                        "drop": rides!.dropAdress,
+                       "userMobile": rides!.userMobile,
                        "pickup_point": rides!.pickup_point,
                        "pickup_location": rides!.pickLocation,
                        "drop_location": rides!.dropLocation,

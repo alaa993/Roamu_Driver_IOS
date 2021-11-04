@@ -109,6 +109,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 self.updateLanguage(lang_nu:"2", lang_text:"en")
             }
             
+            if (Auth.auth().currentUser != nil && Common.instance.getUserId().count > 0) {
+                loginByMobile(mobileNumber: String((Auth.auth().currentUser?.phoneNumber)!),
+                password: String((Auth.auth().currentUser?.uid)!),
+                token: String((Auth.auth().currentUser?.refreshToken)!))
+            }
+            
+            
+            
             let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
             let menu = mainStoryBoard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
             let dashboard = mainStoryBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
@@ -118,6 +126,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
         Fabric.with([Crashlytics.self])
         return true
+    }
+    
+    func loginByMobile(mobileNumber:String ,password:String , token:String){
+            var params = [String:Any]()
+            //params["email"] = self.emailText.text
+            params["mobile"] = mobileNumber
+            params["password"] = password
+            params["utype"] = "1"  // utype = "0" means user and "1" = driver
+            
+            APIRequestManager.request(apiRequest: APIRouters.LoginUser(params), success: { (responseData) in
+                if let data = responseData as? [String:Any] {
+                    let userData = User(userData: data)
+                    let encodedData = NSKeyedArchiver.archivedData(withRootObject: userData)
+                    UserDefaults.standard.set(encodedData, forKey: "user")
+                    UserDefaults.standard.set(data["key"], forKey: "key")
+                    
+                    if userData.brand?.count == 0 {
+                        self.setVehicleInfo()
+                    } else {
+                        self.moveToDashboard()
+                    }
+                }
+            }, failure: { (message) in
+                //Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: message, for: self)
+                self.moveToSignUpPage(mobileParam: mobileNumber , passwordParam: password, token:token)
+            }, error: { (err) in
+            })
+        }
+    
+    func moveToDashboard(){
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let menu = mainStoryBoard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        let dashboard = mainStoryBoard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let dashboardNav = UINavigationController(rootViewController: dashboard)
+        let revealController = SWRevealViewController(rearViewController: menu, frontViewController: dashboardNav)
+        self.window?.rootViewController = revealController
+    }
+    
+    func moveToSignUpPage(mobileParam:String , passwordParam:String , token:String){
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let menu = mainStoryBoard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        let dashboard = mainStoryBoard.instantiateViewController(withIdentifier: "SplashViewController") as! SplashViewController
+//        dashboard.UserData = ["mobile":mobileParam, "password":passwordParam,"gcm_token":token]
+        let dashboardNav = UINavigationController(rootViewController: dashboard)
+        let revealController = SWRevealViewController(rearViewController: menu, frontViewController: dashboardNav)
+        self.window?.rootViewController = revealController
+    }
+    
+    func setVehicleInfo() {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+        let menu = mainStoryBoard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        let dashboard = mainStoryBoard.instantiateViewController(withIdentifier: "VehicleTableViewController") as! VehicleTableViewController
+        dashboard.isFromLogin = true
+        let dashboardNav = UINavigationController(rootViewController: dashboard)
+        let revealController = SWRevealViewController(rearViewController: menu, frontViewController: dashboardNav)
+        self.window?.rootViewController = revealController
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

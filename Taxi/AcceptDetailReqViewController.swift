@@ -258,7 +258,7 @@ class AcceptDetailReqViewController: UIViewController {
         // -- set camera position --
         let camera = GMSCameraPosition.camera(withLatitude: latitude,
                                               longitude: longitude,
-                                              zoom:12)
+                                              zoom:19)
         //        mapView.clear()
         mapView.animate(to: camera)
         mapView.isMyLocationEnabled = true
@@ -708,7 +708,7 @@ class AcceptDetailReqViewController: UIViewController {
         let originCoordinate = results["startCoordinate"] as! CLLocationCoordinate2D
         let destinationCoordinate = results["endCoordinate"] as! CLLocationCoordinate2D
         
-        mapView.camera = GMSCameraPosition.camera(withTarget: originCoordinate, zoom: 12.0)
+        mapView.camera = GMSCameraPosition.camera(withTarget: originCoordinate, zoom: 19)
         originMarker = GMSMarker(position: originCoordinate)
         originMarker.map = mapView
         originMarker.icon = GMSMarker.markerImage(with: UIColor.red)

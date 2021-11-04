@@ -11,10 +11,15 @@ import MessageUI
 
 class ContactUsViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
+    @IBOutlet weak var btn_whatsapp: UIButton!
+    @IBOutlet weak var lbl_whatsapp: UILabel!
     @IBOutlet var TextFieldName: UITextField!
 //    @IBOutlet var TextFieldEmail: UITextField!
     @IBOutlet var TextFieldDetails: UITextField!
     @IBOutlet var ButtonSend: UIButton!
+    
+    @IBOutlet weak var call_whatsapp1: UIButton!
+    @IBOutlet weak var contact_facebook: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +60,11 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
         self.ButtonSend.corner(radius: 20.0, color: UIColor.white, width: 1.0)
         
         ButtonSend.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ContactUsVC_Send", comment: ""), for: .normal)
+        
+        lbl_whatsapp.text = (LocalizationSystem.sharedInstance.localizedStringForKey(key: "call_whatsapp", comment: ""))
+        
+        btn_whatsapp.setTitle("00447732830221‬", for: .normal)
+        call_whatsapp1.setTitle("00905315859877‬", for: .normal)
 
         // Do any additional setup after loading the view.
     }
@@ -86,5 +96,26 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
 //                UIApplication.shared.open(emailURL as URL)
 //            }
 //        }
+    }
+    
+    @IBAction func btn_whatsapp_action(_ sender: Any) {
+        let whatsappURL = URL(string: "https://api.whatsapp.com/send?phone=00447732830221‬")
+        if UIApplication.shared.canOpenURL(whatsappURL!) {
+            UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @IBAction func btn_whatsapp1_action(_ sender: Any) {
+        let whatsappURL = URL(string: "https://api.whatsapp.com/send?phone=00905315859877‬")
+        if UIApplication.shared.canOpenURL(whatsappURL!) {
+            UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @IBAction func btn_facebook_action(_ sender: Any) {
+        let whatsappURL = URL(string: "https://www.facebook.com/Roamu-106899641669798")
+        if UIApplication.shared.canOpenURL(whatsappURL!) {
+            UIApplication.shared.open(whatsappURL!, options: [:], completionHandler: nil)
+        }
     }
 }

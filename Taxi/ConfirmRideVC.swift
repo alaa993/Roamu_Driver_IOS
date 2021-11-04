@@ -20,6 +20,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet var driverName: UILabel!
     @IBOutlet var pickupLocation: UILabel!
     @IBOutlet var dropLocation: UILabel!
+    @IBOutlet var mobile: UILabel!
     
     @IBOutlet var driverCity: UILabel!
     @IBOutlet var time: UILabel!
@@ -31,6 +32,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     @IBOutlet var Namelbl: UILabel!
     @IBOutlet var PickupAddlbl: UILabel!
     @IBOutlet var DropAddlbl: UILabel!
+    @IBOutlet var mobilelbl: UILabel!
     
     @IBOutlet var Citylbl: UILabel!
     @IBOutlet var EmptySetlbl: UILabel!
@@ -96,7 +98,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         Namelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCNamelbl", comment: "")
         Citylbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "ConfirmRideVC_city", comment: "")
-        //MobileNlbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCMobileNlbl", comment: "")
+        mobilelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCMobileNlbl", comment: "")
         PickupAddlbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCPickupAddlbl", comment: "")
         DropAddlbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVCDropAddlbl", comment: "")
         //
@@ -114,7 +116,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         
         //
         
-        confirmButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ConfirmRideVC_confirmButton", comment: ""), for: .normal)
+        confirmButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "ConfirmRideVC_reserveButton", comment: ""), for: .normal)
         cancelButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailReqVC_Cancel", comment: ""), for: .normal)
         
     }
@@ -133,6 +135,7 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             self.date.text = rideData["travel_date"] as? String ?? ""
             self.time.text = rideData["travel_time"] as? String ?? ""
             self.notes.text = rideData["ride_notes"] as? String ?? ""
+            self.mobile.text = rideData["userMobile"] as? String ?? ""
             
             if let urlString = URL(string: (rideData["userAvatar"] as? String ?? "")){
                 self.DriverAvatar.kf.setImage(with: urlString)
@@ -156,7 +159,10 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                     if (response.result.value?.status == true && (response.result.value?.rides) != nil) {
                         print(response.result.value as Any)
                         self.rides = (response.result.value?.rides)!
-                        if( self.rides.isEmpty){Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: "No data found.", for: self)}else{
+                        if( self.rides.isEmpty){
+                            _ = self.navigationController?.popViewController(animated: true)
+                            Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: "No data found.", for: self)
+                        }else{
                             self.driverName.text = self.rides[0].userName
                             self.pickupLocation.text = self.rides[0].pickupAdress
                             self.dropLocation.text = self.rides[0].dropAdress
@@ -166,13 +172,17 @@ class ConfirmRideVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
                             self.date.text = self.rides[0].date
                             self.time.text = self.rides[0].time
                             self.notes.text = self.rides[0].ride_notes
-                            
+                            self.mobile.text = self.rides[0].userMobile
                             if let urlString = URL(string: (self.rides[0].userAvatar)){
                                 self.DriverAvatar.kf.setImage(with: urlString)
                             }
                         }}
                     else {
+                        _ = self.navigationController?.popViewController(animated: true)
                         Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: "No data found.", for: self)
+                        
+                        //                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                        //                        self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
             }

@@ -51,6 +51,7 @@
 	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>whatsapp</string>
 		<string>googlechromes</string>
 		<string>comgooglemaps</string>
 	</array>

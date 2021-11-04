@@ -28,13 +28,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUQ-kt-zf0">
-                                <rect key="frame" x="52" y="0.0" width="87" height="21"/>
+                                <rect key="frame" x="52" y="0.0" width="150" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 minutes ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Mv-y9-Dza">
-                                <rect key="frame" x="52" y="23" width="87" height="14.5"/>
+                                <rect key="frame" x="52" y="23" width="150" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -64,6 +64,18 @@
                                     <action selector="AboutButtonClicked:" destination="gCB-lA-aoS" eventType="touchUpInside" id="aU0-ne-g8M"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rwd-X3-JOc">
+                                <rect key="frame" x="332" y="0.0" width="55" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="55" id="g2M-Ub-trt"/>
+                                    <constraint firstAttribute="height" constant="34" id="gxK-Em-tqq"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="menu"/>
+                                <connections>
+                                    <action selector="edit_post_action:" destination="gCB-lA-aoS" eventType="touchUpInside" id="Wq6-YJ-oUq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -77,9 +89,13 @@
                             <constraint firstItem="1J6-6d-Wcl" firstAttribute="leading" secondItem="k3m-7d-7PO" secondAttribute="leading" id="Kf4-D4-bJ8"/>
                             <constraint firstAttribute="bottom" secondItem="CZE-4B-cPh" secondAttribute="bottom" constant="45" id="L45-4t-lsT"/>
                             <constraint firstItem="8Mv-y9-Dza" firstAttribute="top" secondItem="rUQ-kt-zf0" secondAttribute="bottom" constant="2" id="LFN-ib-aCz"/>
+                            <constraint firstItem="CZE-4B-cPh" firstAttribute="top" secondItem="Rwd-X3-JOc" secondAttribute="bottom" constant="15" id="Wh2-Vg-y7R"/>
+                            <constraint firstItem="Rwd-X3-JOc" firstAttribute="leading" secondItem="rUQ-kt-zf0" secondAttribute="trailing" constant="130" id="arD-du-34e"/>
                             <constraint firstItem="rUQ-kt-zf0" firstAttribute="trailing" secondItem="8Mv-y9-Dza" secondAttribute="trailing" id="f2Z-6M-TqL"/>
+                            <constraint firstAttribute="trailing" secondItem="Rwd-X3-JOc" secondAttribute="trailing" id="hXX-0E-Kjf"/>
                             <constraint firstItem="CZE-4B-cPh" firstAttribute="top" secondItem="8Mv-y9-Dza" secondAttribute="bottom" constant="11.5" id="hnH-Cl-DMk"/>
                             <constraint firstItem="Nwq-No-PkH" firstAttribute="top" secondItem="CZE-4B-cPh" secondAttribute="bottom" constant="4" id="iqk-JR-WdD"/>
+                            <constraint firstItem="Rwd-X3-JOc" firstAttribute="top" secondItem="k3m-7d-7PO" secondAttribute="top" id="j4c-SQ-VCJ"/>
                             <constraint firstItem="rUQ-kt-zf0" firstAttribute="leading" secondItem="1J6-6d-Wcl" secondAttribute="trailing" constant="8" id="nZL-CA-b1K"/>
                         </constraints>
                     </view>
@@ -95,13 +111,17 @@
             <connections>
                 <outlet property="AboutButton" destination="Nwq-No-PkH" id="LFK-Um-HZI"/>
                 <outlet property="commentsLabel" destination="9AC-Ad-QNC" id="VYa-nF-GZn"/>
+                <outlet property="edit_post" destination="Rwd-X3-JOc" id="BE3-Yb-VNK"/>
                 <outlet property="iii" destination="k3m-7d-7PO" id="S9u-mY-fbF"/>
                 <outlet property="postTextView" destination="CZE-4B-cPh" id="XJi-CY-tw4"/>
                 <outlet property="profileImageView" destination="1J6-6d-Wcl" id="y45-7H-hcB"/>
                 <outlet property="subtitleLabel" destination="8Mv-y9-Dza" id="FO8-5e-PXE"/>
                 <outlet property="usernameLabel" destination="rUQ-kt-zf0" id="nzy-cT-iFH"/>
             </connections>
-            <point key="canvasLocation" x="159" y="76"/>
+            <point key="canvasLocation" x="158.69565217391306" y="75"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="menu" width="22" height="22"/>
+    </resources>
 </document>

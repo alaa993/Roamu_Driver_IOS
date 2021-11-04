@@ -37,11 +37,13 @@
 
 "SignUpVC_signUpButton" = "Sign Up";
 "SignUpVC_nameText" = "Name";
+"SignUpVC_last_nameText" = "Last Name";
 "SignUpVC_emailText" = "Email";
 "SignUpVC_SocialStatusEmployess" = "Employee";
 "SignUpVC_SocialStatusStudent" = "Student";
 "SignUpVC_SocialStatusRegular" = "General";
 "SignUpVC_OptionalText" = "Optional";
+"SignUpVC_pickup_image" = "Please pickup image first!";
 
 "ProcileVCTitle" = "Profile";
 "ProcileVC_mobile" = "Mobile";
@@ -91,6 +93,8 @@
 "RequestsCell_Datelbl" = "Date";
 "RequestsCell_DriverNamelbl" = "Driver Name";
 "RequestsCell_Namelbl" = "Name";
+"RequestsCell_Name_code_lbl" = "Name - Code";
+
 "RequestsCell_customerslbl" = "Customers Count";
 "RequestsCell_TotalFare" = "Total Trip Price";
 
@@ -125,7 +129,8 @@
 "ConfirmRideVC_Vehiclelbl" = "Vehicle";
 "ConfirmRideVC_Smokedlbl" = "Smoked";
 "ConfirmRideVC_Distancelbl" = "Distance";
-"ConfirmRideVC_confirmButton" = "CONFIRM";
+"ConfirmRideVC_reserveButton" = "Reserve";
+"ConfirmRideVC_confirmButton" = "Confirm";
 "ConfirmRideVC_city" = "City";
 "ConfirmRideVC_Alert" = "Alert";
 "ConfirmRideVC_AlertDetail" = "Please select Number of Seats more than passengers Number";
@@ -175,7 +180,7 @@
 
 "VehicleDetailVC_Titel" = "Vehicle Documents";
 "VehicleDetailVC_DrivingLicence" = "Upload your driving licence";
-"VehicleDetailVC_personalId" = "personal identification";
+"VehicleDetailVC_personalId" = "Vehicle Document";
 "VehicleDetailVC_VehicleReg" = "Vehicle image";
 
 "PlatformVC_Title" = "Platform";
@@ -197,6 +202,7 @@
 "Cancel" = "Cancel";
 "Submit" = "Submit";
 "PickUpPoint" = "Pickup Point";
+"PickUpPoint_location" = "Pickup Point location (optional)";
 
 "Travel_is_going_from" = "Have a nice trip with me";
 "Travel_from" = "From: ";
@@ -255,9 +261,23 @@ or to another city looking for available means of transportation At the appropri
 "notification_started" = "Travel Started!";
 "notification_offline_request" = "the Client wants to pay cash!";
 "notification_offline_approved" = "the driver Accepted your offline payment";
+"notification_add_driver" = "You have been selected in a group: ";
+"notification_del_driver" = "You have been removed from a group: ";
 
 "notes_bags_weights" = "Notes, Number of Bags (Optional)";
 "notes" = "Notes";
 
 "invalid_phone_number" = "Invalid Phone Number, please try Again!";
 
+"distance_info" = "Distance Information";
+"distance1_info" = "Distance";
+"distance_time_info" = "Arrival time";
+
+"call_whatsapp" = "WhatsApp numbers";
+
+"Post_TextBody" = "text";
+"Profile_editPost" = "Edit Post";
+"Profile_settings" = "Edit Post";
+"Profile_delPost" = "Delete Post";
+"Profile_cancel" = "Cancel";
+"Profile_sharePost" = "Share Post";

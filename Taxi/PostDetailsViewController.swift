@@ -10,14 +10,14 @@ import UIKit
 import Firebase
 
 class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
-
-//    var tableView:UITableView!
+    
+    //    var tableView:UITableView!
     @IBOutlet var PostTableView: UITableView!
     
     @IBOutlet var CommentButton: UIButton!
-//    @IBOutlet var TripDetailsButton: UIButton!
+    //    @IBOutlet var TripDetailsButton: UIButton!
     
-//    @IBOutlet var CommentTextField: UITextField!
+    //    @IBOutlet var CommentTextField: UITextField!
     
     @IBOutlet var CommentTextView: UITextView!
     
@@ -37,7 +37,7 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
     
     var postsRef:DatabaseReference {
         return Database.database().reference().child("posts").child(self.post[0].id).child("Comments")
-//        return Database.database().reference().child("posts")
+        //        return Database.database().reference().child("posts")
     }
     
     var oldPostsQuery:DatabaseQuery {
@@ -63,7 +63,7 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         }
         return queryRef
     }
-
+    
     //var VCpost = [Post]()
     var post = [Post]()
     
@@ -85,7 +85,7 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         CommentsTableView.register(cellNib2, forCellReuseIdentifier: "postCell")
         CommentsTableView.register(LoadingCell.self, forCellReuseIdentifier: "loadingCell")
         CommentsTableView.backgroundColor = UIColor(white: 0.90,alpha:1.0)
-//        view.addSubview(CommentsTableView)
+        //        view.addSubview(CommentsTableView)
         
         var layoutGuide:UILayoutGuide!
         CommentTextView.delegate = self
@@ -123,9 +123,9 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         
         seeNewPostsButton.button.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         beginBatchFetch()
-
+        
     }
-  
+    
     override func viewDidAppear(_ animated: Bool) {
         listenForNewPosts()
     }
@@ -244,6 +244,22 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             tableView.register(cellNib, forCellReuseIdentifier: "postCell")
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
+            cell.commentsLabel.isHidden = true
+            if (self.post[0].type == "0" && self.post[0].travel_id > 0)
+            {
+                cell.AboutButton.isHidden = false
+                cell.edit_post.isHidden = true
+                
+            }
+            else{
+                cell.AboutButton.isHidden = true
+                cell.edit_post.isHidden = false
+            }
+            if (self.post[0].author.uid == Auth.auth().currentUser?.uid){
+                cell.edit_post.isHidden = false
+            }else{
+                cell.edit_post.isHidden = true
+            }
             cell.iii.backgroundColor = UIColor.init(red: 210.0/255.0, green: 210.0/255.0, blue: 210.0/255.0, alpha: 1.0)
             cell.postTextView.font = UIFont.init(name: "Times New Roman", size: 20)
             cell.postTextView.isEditable = false
@@ -254,7 +270,6 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
             userRef.observe(.value, with: { snapshot in
                 count = Int(snapshot.childrenCount)
                 cell.set(post: self.post[0], CommentsNo: count, subStoryboard:self.storyboard!, subNavigationVC: self.navigationController!)
-                
             })
             return cell
         } else if tableView == CommentsTableView{
@@ -266,7 +281,7 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                 let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! CommentTableViewCell
                 let userRef = Database.database().reference().child("posts").child(posts[indexPath.row].id).child("Comments")
                 userRef.observe(.value, with: { snapshot in
-                cell.set(post: self.posts[indexPath.row])
+                    cell.set(post: self.posts[indexPath.row])
                     
                 })
                 return cell
@@ -336,7 +351,7 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                     self.handleRefresh()
                     self.lastUploadedPostID = nil
                 } else {
-                   self.toggleSeeNewPostsButton(hidden: false)
+                    self.toggleSeeNewPostsButton(hidden: false)
                 }
             }
         })
@@ -354,24 +369,20 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
         handleCommentButton()
     }
     
-//    @IBAction func TripDetailsButtonClicked(_ sender: Any) {
-//        let vcConfirm = self.storyboard?.instantiateViewController(withIdentifier: "ConfirmRideVC") as! ConfirmRideVC
-//        vcConfirm.confirmRequestPage = confirmRequestView.PlatformViewController
-//        print(String(self.post[0].travel_id))
-//        vcConfirm.travel_id_var = String(self.post[0].travel_id)
-//        self.navigationController?.pushViewController(vcConfirm, animated: true)
-//    }
+    //    @IBAction func TripDetailsButtonClicked(_ sender: Any) {
+    //        let vcConfirm = self.storyboard?.instantiateViewController(withIdentifier: "ConfirmRideVC") as! ConfirmRideVC
+    //        vcConfirm.confirmRequestPage = confirmRequestView.PlatformViewController
+    //        print(String(self.post[0].travel_id))
+    //        vcConfirm.travel_id_var = String(self.post[0].travel_id)
+    //        self.navigationController?.pushViewController(vcConfirm, animated: true)
+    //    }
     
     
     func observePosts() {
-        let commentsRef = Database.database().reference().child("posts").child(self.post[0].id).child("")
-
-
-        commentsRef.observe(.value, with: { snapshot in
-
-            var tempPosts = [Post]()
-
+        Database.database().reference().child("posts").child(self.post[0].id).observe(.value, with: { snapshot in
             for child in snapshot.children {
+                print("ibrahim")
+                print(snapshot)
                 if let childSnapshot = child as? DataSnapshot,
                     let dict = childSnapshot.value as? [String:Any],
                     let author = dict["author"] as? [String:Any],
@@ -383,16 +394,10 @@ class PostDetailsViewController: UIViewController, UITableViewDelegate, UITableV
                     let type = dict["type"] as? String,
                     let travel_id = dict["travel_id"] as? Double,
                     let timestamp = dict["timestamp"] as? Double {
-
                     let userProfile = UserProfile(uid: uid, username: username, photoURL: url)
                     let post = Post(id: childSnapshot.key, author: userProfile, text: text, timestamp:timestamp,type: type, travel_id:Int(travel_id))
-                    tempPosts.append(post)
                 }
             }
-
-//            self.post[0] = self.post[0]//tempPosts
-            self.CommentsTableView.reloadData()
-
         })
     }
     
@@ -466,7 +471,7 @@ extension PostDetailsViewController {
         messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
         
-//        messageImageView.image = messageImage
+        //        messageImageView.image = messageImage
         titleLabel.text = title
         messageLabel.text = message
         messageLabel.numberOfLines = 0

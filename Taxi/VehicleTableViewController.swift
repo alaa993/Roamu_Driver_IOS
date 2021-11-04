@@ -8,7 +8,15 @@
 
 import UIKit
 
+//enum VehicleTableView: String {
+//    case optional
+//    case required
+//}
+
 class VehicleTableViewController: UITableViewController, UIPickerViewDelegate {
+    
+//    var requestPage:VehicleTableView?
+    
     @IBOutlet var brandText: UITextField!
     @IBOutlet var modelText: UITextField!
     @IBOutlet var yearText: UITextField!
@@ -34,7 +42,15 @@ class VehicleTableViewController: UITableViewController, UIPickerViewDelegate {
     //------------------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = LocalizationSystem.sharedInstance.localizedStringForKey(key: "VehicleTableVC_Title", comment: "")
+        
+//        if requestPage == VehicleTableView.optional{
+//
+//        }
+//        else if requestPage == VehicleTableView.required{
+//
+//        }
         
         AddVehicleDocslbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "VehicleTableVC_AddVehicleDocslbl", comment: "")
         updateButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "VehicleTableVC_updateButton", comment: ""), for: .normal)
@@ -143,12 +159,12 @@ class VehicleTableViewController: UITableViewController, UIPickerViewDelegate {
     //------------------------------------------------------------------------------------------------------------------------------------------
     @IBAction func continueWasPressed(_ sender: UIButton) {
         if isFromLogin == true {
-            if validateDocuments() {
+//            if validateDocuments() {
                 if validateTextFields() {
                     view.endEditing(true)
                     addVehicleData()
                 }
-            }
+//            }
         }
         else {
             if validateTextFields() {
@@ -305,7 +321,7 @@ class VehicleTableViewController: UITableViewController, UIPickerViewDelegate {
     
     func moveToDashboard(){
         let menu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        let dashboard = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        let dashboard = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         let dashboardNav = UINavigationController(rootViewController: dashboard)
         let revealController = SWRevealViewController(rearViewController: menu, frontViewController: dashboardNav)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate

@@ -100,6 +100,7 @@ class PlatformViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.register(cellNib, forCellReuseIdentifier: "postCell")
         tableView.register(LoadingCell.self, forCellReuseIdentifier: "loadingCell")
         tableView.backgroundColor = UIColor(white: 0.90,alpha:1.0)
+        
         view.addSubview(tableView)
 
         var layoutGuide:UILayoutGuide!
@@ -255,6 +256,8 @@ class PlatformViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostTableViewCell
+            cell.edit_post.isHidden = true
+            cell.commentsLabel.isHidden = false
             var count = 0
             if #available(iOS 11.0, *) {
                 let userRef = Database.database().reference().child("posts").child(posts[indexPath.row].id).child("Comments")
@@ -345,6 +348,7 @@ class PlatformViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     var postListenerHandle:UInt?
+//    var postListenerHandle1:UInt?
     
     func listenForNewPosts() {
         
@@ -370,6 +374,12 @@ class PlatformViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         })
+        
+//        postListenerHandle1 = newPostsQuery.observe(.childRemoved, with: { snapshot in
+//            self.handleRefresh()
+//        })
+        
+        
     }
     
     func stopListeningForNewPosts() {
@@ -377,6 +387,11 @@ class PlatformViewController: UIViewController, UITableViewDelegate, UITableView
             newPostsQuery.removeObserver(withHandle: handle)
             postListenerHandle = nil
         }
+        
+//        if let handle = postListenerHandle1 {
+//            newPostsQuery.removeObserver(withHandle: handle)
+//            postListenerHandle1 = nil
+//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

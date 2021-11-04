@@ -102,7 +102,13 @@ class SplashViewController: UIViewController {
                 UserDefaults.standard.set(encodedData, forKey: "user")
                 UserDefaults.standard.set(data["key"], forKey: "key")
                 
-                self.moveToDashboard()
+                if userData.brand?.count == 0 {
+                    self.setVehicleInfo()
+                } else {
+                    self.moveToDashboard()
+                }
+                
+//                self.moveToDashboard()
             }
         }, failure: { (message) in
             HUD.hide(to: self.view)
@@ -127,6 +133,14 @@ class SplashViewController: UIViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         vc.UserData = ["mobile":mobileParam, "password":passwordParam,"gcm_token":token]
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setVehicleInfo() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "VehicleTableViewController") as! VehicleTableViewController
+        vc.isFromLogin = true
+        let nav = UINavigationController(rootViewController: vc)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = nav
     }
 }
 

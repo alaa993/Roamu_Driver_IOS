@@ -32,6 +32,7 @@ class TravelsDetailReqViewController: UIViewController {
     var originMarker: GMSMarker!
     var destinationMarker: GMSMarker!
     var markerView = MarkerView()
+    var GoogleDistanceMatrixView = GoogleDistanceMatrix()
     
     var travelDetail:DriverTravel?
     
@@ -41,6 +42,7 @@ class TravelsDetailReqViewController: UIViewController {
     var longitude = 0.0
     var didAllPaid = false
     var travel_status_st = ""
+    var isGoogleDistanceMatrixView = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +93,62 @@ class TravelsDetailReqViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupGoogleDistanceMatrixView(GoogleDistanceMatrixView:UIView){
+        GoogleDistanceMatrixView.translatesAutoresizingMaskIntoConstraints = false
+        // -- add leading constraint --
+        let leadingConstraint = NSLayoutConstraint(item: GoogleDistanceMatrixView,
+                                                   attribute: .leading,
+                                                   relatedBy: .equal,
+                                                   toItem: view,
+                                                   attribute: .leading,
+                                                   multiplier: 1, constant: 0)
+        // -- add trailing constraint --
+        let trailingConstraint = NSLayoutConstraint(item: GoogleDistanceMatrixView,
+                                                    attribute: .trailing,
+                                                    relatedBy: .equal,
+                                                    toItem: view,
+                                                    attribute: .trailing,
+                                                    multiplier: 1, constant: 0)
+        // -- add bottom constraint --
+        let bottomConstraint = NSLayoutConstraint(item: GoogleDistanceMatrixView,
+                                                  attribute: .bottom,
+                                                  relatedBy: .equal,
+                                                  toItem: view,
+                                                  attribute: .bottom,
+                                                  multiplier: 1, constant: -15)
+        // -- add height constraint --
+        let heightConstraint = NSLayoutConstraint(item: GoogleDistanceMatrixView,
+                                                  attribute: .height,
+                                                  relatedBy: .equal,
+                                                  toItem: nil,
+                                                  attribute: .notAnAttribute,
+                                                  multiplier: 1, constant: 150)
+        // -- activate constraints --
+        NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, bottomConstraint, heightConstraint])
+    }
+    
+    func updateGoogleDistanceMatrixViewDetails(data:Travel){
+        //        infoView.distance.text = (taxiFare?.cost)! + (taxiFare?.unit)! //String(format: "%.2f", Double(data.distance)!) + "km"
+        
+    }
+    
+    func removeUnwantedViews(){
+        if GoogleDistanceMatrixView.isDescendant(of: view) {
+            UIView.animate(withDuration: 1.0, animations: {
+                self.GoogleDistanceMatrixView.alpha = 0
+                self.GoogleDistanceMatrixView.alpha = 0
+            }) { (finished) in
+                if finished {
+                    self.GoogleDistanceMatrixView.removeFromSuperview()
+                    self.GoogleDistanceMatrixView.removeFromSuperview()
+                    //                    if self.tableView.isDescendant(of: self.view){
+                    //                        self.tableView.removeFromSuperview()
+                    //                    }
+                }
+            }
+        }
     }
     
     @IBAction func homeWasClicked(_ sender: UIButton) {
@@ -270,6 +328,7 @@ class TravelsDetailReqViewController: UIViewController {
     
     @IBAction func cancelWasPressed(_ sender: UIButton) {
         sendRequests(with: "CANCELLED")
+        deletePost()
     }
     
     @IBAction func notesWasPressed(_ sender: UIButton) {
@@ -333,7 +392,7 @@ class TravelsDetailReqViewController: UIViewController {
         // -- set camera position --
         let camera = GMSCameraPosition.camera(withLatitude: latitude,
                                               longitude: longitude,
-                                              zoom:12)
+                                              zoom:19)
         //        mapView.clear()
         mapView.animate(to: camera)
         mapView.isMyLocationEnabled = true
@@ -424,7 +483,7 @@ class TravelsDetailReqViewController: UIViewController {
         let originCoordinate = results["startCoordinate"] as! CLLocationCoordinate2D
         let destinationCoordinate = results["endCoordinate"] as! CLLocationCoordinate2D
         
-        mapView.camera = GMSCameraPosition.camera(withTarget: originCoordinate, zoom: 12.0)
+        mapView.camera = GMSCameraPosition.camera(withTarget: originCoordinate, zoom: 19)
         originMarker = GMSMarker(position: originCoordinate)
         originMarker.map = mapView
         originMarker.icon = GMSMarker.markerImage(with: UIColor.red)
@@ -477,21 +536,47 @@ extension TravelsDetailReqViewController:GMSMapViewDelegate,UITextFieldDelegate 
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        //        removeUnwantedViews()
+        if(isGoogleDistanceMatrixView == false){
+            self.self.distancematrixGet(with:String(self.latitude) + "," + String(self.longitude), destincationCoordinate:String(marker.position.latitude) + "," + String(marker.position.longitude))
+        }
+        else{
+            removeUnwantedViews()
+            isGoogleDistanceMatrixView = false
+        }
         return false
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        UIView.animate(withDuration: 0.4, animations: {
-            //            self.infoView.layer.position.y += 200
-            //            self.pickupView.layer.position.y -= 150
-        }) { (finished) in
-            if finished {
-                //                self.infoView.removeFromSuperview()
-                //                self.pickupView.removeFromSuperview()
-            }
+        if(isGoogleDistanceMatrixView == false){
+            self.self.distancematrixGet(with:String(self.latitude) + "," + String(self.longitude), destincationCoordinate:String(coordinate.latitude) + "," + String(coordinate.longitude))
+        }
+        else{
+            removeUnwantedViews()
+            isGoogleDistanceMatrixView = false
         }
     }
+    
+    func distancematrixGet(with originCoordinate:String, destincationCoordinate:String) {
+            print("distancematrixGet")
+            Distance().find(origin: originCoordinate.replacingOccurrences(of: " ", with: "+"), destination: destincationCoordinate.replacingOccurrences(of: " ", with: "+")){ (distance,time) in
+    //            print("Total Distance : "+distance)
+    //            print("Estimated Time : "+time)
+                if(String(distance).count > 0){
+                    self.isGoogleDistanceMatrixView = true
+                    self.GoogleDistanceMatrixView = GoogleDistanceMatrix.loadFromNib()
+                    self.view.addSubview(self.GoogleDistanceMatrixView)
+                    self.setupGoogleDistanceMatrixView(GoogleDistanceMatrixView: self.GoogleDistanceMatrixView)
+                    self.GoogleDistanceMatrixView.layer.position.y += 200
+                    self.GoogleDistanceMatrixView.slideUpSpring(toPosition: 200, withDuration: 1.0, delay: 0.0, andOptions: [.curveEaseInOut])
+                    self.GoogleDistanceMatrixView.distance_info.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "distance_info", comment: "")
+                    self.GoogleDistanceMatrixView.distance1_info.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "distance1_info", comment: "")
+                    self.GoogleDistanceMatrixView.distance_time_info.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "distance_time_info", comment: "")
+
+                    self.GoogleDistanceMatrixView.distance1_info_var.text = distance
+                    self.GoogleDistanceMatrixView.distance_time_info_var.text = time
+                }
+            }
+        }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
     }
@@ -510,13 +595,13 @@ extension TravelsDetailReqViewController: UITableViewDelegate,UITableViewDataSou
         cell.Fromlbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "RequestsCell_Fromlbl", comment: "")
         cell.Tolbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "RequestsCell_Tolbl", comment: "")
         cell.Datelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "RequestsCell_Datelbl", comment: "")
-        cell.DriverNamelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "RequestsCell_Namelbl", comment: "")
+        cell.DriverNamelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "RequestsCell_Name_code_lbl", comment: "")
         cell.ReqTypelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "DriverInfoVC_Status", comment: "")
         
         // -- get current Rides Object --
         let currentObj = rides[indexPath.row]
         // -- set driver name to cell --
-        cell.name.text = currentObj.userName
+        cell.name.text = currentObj.userName + " - " + currentObj.rideId
         //        cell.ReqTypeVal.text = currentObj.status
         
         // -- set date and time to cell --

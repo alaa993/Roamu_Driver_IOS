@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class VehicleDetailViewController: UITableViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-
+    
     // -- instance variables --
     let picker = UIImagePickerController()
     var selectedRow:Int = 0
@@ -31,7 +31,7 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
         DrivingLicencelbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "VehicleDetailVC_DrivingLicence", comment: "")
         personalIdlbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "VehicleDetailVC_personalId", comment: "")
         VehicleReglbl.text = LocalizationSystem.sharedInstance.localizedStringForKey(key: "VehicleDetailVC_VehicleReg", comment: "")
-
+        
         // -- setup back button --
         let backButton = UIBarButtonItem(image: UIImage(named: "arrow-left"),
                                          style: .plain, target: self,
@@ -40,12 +40,12 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
         
         picker.delegate = self
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //------------------------------------------------------------------------------------------------------------------------------------------
     // MARK: - Table view data source
     //------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,16 +67,16 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
             
             if indexPath.row == 0 && (userData?.license?.count)! > 0 {
                 cell.accessoryType = .checkmark
-            } else if indexPath.row == 1 && (userData?.insurance?.count)! > 0 {
+            } else if indexPath.row == 1 && (userData?.permit?.count)! > 0 {
                 cell.accessoryType = .checkmark
             } else if indexPath.row == 2 && (userData?.vehicle_info?.count)! > 0 {
                 cell.accessoryType = .checkmark
             }
-            
-//                else if indexPath.row == 3 && (userData?.registration?.count)! > 0 {
-//                    cell.accessoryType = .checkmark
-//                }
-            
+                
+                //                else if indexPath.row == 3 && (userData?.registration?.count)! > 0 {
+                //                    cell.accessoryType = .checkmark
+                //                }
+                
             else {
                 cell.accessoryType = .none
             }
@@ -101,16 +101,16 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
         if selectedRow == 0 {
             imgName = "license"
         } else if selectedRow == 1 {
-            imgName = "insurance"
+            imgName = "permit"
         } else if selectedRow == 2 {
             imgName = "vehicle_info"
         }
-//        else if selectedRow == 3 {
-//            imgName = "registration"
-//        }
+        //        else if selectedRow == 3 {
+        //            imgName = "registration"
+        //        }
         
-//        updateVehicleInfo(with: img.resizeImage(newWidth: 400), and: imgName)
-        handleUpdate()
+        updateVehicleInfo(with: img.resizeImage(newWidth: 400), and: imgName)
+//        handleUpdate()
         
         dismiss(animated: true, completion: nil)
     }
@@ -132,7 +132,7 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
         print("h3")
         //guard let image = avatar else { return }
         self.uploadProfileImage(avatar) { url in
-//            print("dddddddd",url)
+            //            print("dddddddd",url)
             if url != nil {
                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                 
@@ -144,16 +144,16 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
                         print("User display name changed!")
                         print("h4")
                         HUD.hide(to: self.view)
-//                        self.saveProfile(profileImageURL: url!) { success in
-//                            if success {
-//                                print("success")
-//                                print("h5")
-//                                //  self.requsetSignupForDB(photoURL: (self.changeRequest?.photoURL!.absoluteString)!)
-//                                //self.dismiss(animated: true, completion: nil)
-//                            } else {
-//                                print("error")
-//                            }
-//                        }
+                        //                        self.saveProfile(profileImageURL: url!) { success in
+                        //                            if success {
+                        //                                print("success")
+                        //                                print("h5")
+                        //                                //  self.requsetSignupForDB(photoURL: (self.changeRequest?.photoURL!.absoluteString)!)
+                        //                                //self.dismiss(animated: true, completion: nil)
+                        //                            } else {
+                        //                                print("error")
+                        //                            }
+                        //                        }
                     } else {
                         //                        print("Error: \(error!.localizedDescription)")
                         print("error")
@@ -268,13 +268,13 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
                                                     if self.selectedRow == 0 {
                                                         userData?.license = data["license"]
                                                     } else if self.selectedRow == 1 {
-                                                        userData?.insurance = data["insurance"]
+                                                        userData?.permit = data["permit"]
                                                     } else if self.selectedRow == 2 {
                                                         userData?.vehicle_info = data["vehicle_info"]
                                                     }
-//                                                    else if self.selectedRow == 3 {
-//                                                        userData?.registration = data["registration"]
-//                                                    }
+                                                    //                                                    else if self.selectedRow == 3 {
+                                                    //                                                        userData?.registration = data["registration"]
+                                                    //                                                    }
                                                     
                                                     let encodedData = NSKeyedArchiver.archivedData(withRootObject: userData!)
                                                     UserDefaults.standard.set(encodedData, forKey: "user")
@@ -294,7 +294,7 @@ class VehicleDetailViewController: UITableViewController,UIImagePickerController
             print(error.localizedDescription)
         }
     }
-
+    
     //------------------------------------------------------------------------------------------------------------------------------------------
     // MARK:- other methods
     //------------------------------------------------------------------------------------------------------------------------------------------

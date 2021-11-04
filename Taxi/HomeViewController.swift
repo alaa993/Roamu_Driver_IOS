@@ -49,6 +49,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     
     var TextFieldPlatform2: UITextField!
     var TextFieldPickupPoint: UITextField!
+    var TextFieldPickupPoint_location: UITextField!
     var TextFieldPassengersNum: UITextField!
     var TextFieldTripPrice: UITextField!
     
@@ -253,7 +254,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             alertController = UIAlertController(title:
                 NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "Enter number of passengers,Trip price", comment: ""),comment: ""),message: NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "Enter number of passengers,Trip price", comment: ""),comment: ""),preferredStyle: .alert)
             
-            // pickup point
+            //0 pickup point
             alertController!.addTextField(
                 configurationHandler: {(textField: UITextField!) in
                     self.TextFieldPickupPoint = textField
@@ -261,7 +262,16 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     textField.keyboardType = UIKeyboardType.default
                     self.TextFieldPickupPoint.addTarget(self, action: #selector(self.pickupPointFunction), for: .touchDown)
             })
-            // passengers number
+            
+            //1 pickup location on map
+            alertController!.addTextField(
+                configurationHandler: {(textField: UITextField!) in
+                    self.TextFieldPickupPoint_location = textField
+                    textField.placeholder = NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "PickUpPoint_location", comment: ""),comment: "")
+                    textField.keyboardType = UIKeyboardType.default
+                    self.TextFieldPickupPoint_location.addTarget(self, action: #selector(self.pickupPoint_locationFunction), for: .touchDown)
+            })
+            //2 passengers number
             alertController!.addTextField(
                 configurationHandler: {(textField: UITextField!) in
                     //                    self.TextFieldPassengersNum = textField
@@ -270,7 +280,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     textField.keyboardType = .asciiCapableNumberPad
                     
             })
-            // trip price
+            //3 trip price
             alertController!.addTextField(
                 configurationHandler: {(textField: UITextField!) in
                     //                    self.TextFieldTripPrice = textField
@@ -279,7 +289,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     textField.keyboardType = .asciiCapableNumberPad
                     
             })
-            //notes
+            //4 notes
             alertController!.addTextField(
                 configurationHandler: {(textField: UITextField!) in
                     textField.placeholder = NSLocalizedString(LocalizationSystem.sharedInstance.localizedStringForKey(key: "notes_bags_weights", comment: ""),comment: "")
@@ -287,7 +297,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     textField.keyboardType = .default
                     
             })
-            // platform
+            //5 platform
             alertController!.addTextField(
                 configurationHandler: {(textField: UITextField!) in
                     self.TextFieldPlatform2 = textField
@@ -310,19 +320,19 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                                             }else{
                                                 self?.pickUpPoint = theTextFields[0].text!
                                             }
-                                            if theTextFields[1].text!.count == 0{
+                                            if theTextFields[2].text!.count == 0{
                                                 self?.enteredText = "1"
                                             }else{
-                                                self?.enteredText = theTextFields[1].text!
+                                                self?.enteredText = theTextFields[2].text!
                                             }
-                                            if theTextFields[2].text!.count == 0{
+                                            if theTextFields[3].text!.count == 0{
                                                 Common.showAlert(with: NSLocalizedString("Alert!!", comment: ""), message: NSLocalizedString("Please fill all the fields.", comment: ""), for: self!)
                                                 return
                                                 
                                             }else{
-                                                self?.amount = theTextFields[2].text!
+                                                self?.amount = theTextFields[3].text!
                                             }
-                                            self?.bagsNotes = theTextFields[3].text!
+                                            self?.bagsNotes = theTextFields[4].text!
                                             self!.AddTravel_Func()
                                         }
             })
@@ -358,6 +368,13 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         autocompleteClicked()
     }
     
+    @objc func pickupPoint_locationFunction(textField: UITextField) {
+        isPickupPoint = true
+        dismiss(animated: true, completion: nil)
+        GoogleSearchClicked()
+        
+    }
+    
     func AddTravel_Func(){
         if self.validateTextFields1() {
             // -- manage parameters --
@@ -368,6 +385,7 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             parameters["pickup_location"] = PickupLocation//TextFieldPickupAddress.text  //"Maysat"
             parameters["drop_location"] = DropLocation//TextFieldDropAddress.text //"Maysat"
             parameters["pickup_point"] = self.pickUpPoint
+            parameters["pickup_point_location"] = self.pickupPointLocation
             parameters["distance"] = "0"
             parameters["amount"] = self.amount
             parameters["available_set"] = self.enteredText // at least equals to the number of booked Set
@@ -642,6 +660,19 @@ class HomeViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             self.DropLocation = "\(pickupLat),\(pickupLog)"
             isDrop = false
         }
+        else if isPickupPoint{
+            if openAlert(){
+                self.TextFieldPickupPoint.text = (ResultSearchDictionary["title"] as! String)
+                let pickupLat = ResultSearchDictionary["latitude"]!
+                let pickupLog = ResultSearchDictionary["longitude"]!
+                self.pickupPointLocation = "\(pickupLat),\(pickupLog)"
+                self.TextFieldPickupPoint_location.text = "\(pickupLat),\(pickupLog)"
+                isPickupPoint = false
+                //                self.TextFieldTripPrice.text = self.TextFieldTripPrice.text
+                //                self.TextFieldPassengersNum.text = self.TextFieldPassengersNum.text
+                //                self.TextFieldPlatform2.text = self.TextFieldPlatform2.text
+            }
+        }
     }
     
     func NoOfPassengersPass(NoOfPassengersVar: Int!) {
@@ -830,14 +861,18 @@ extension HomeViewController: GMSAutocompleteViewControllerDelegate {
         //    print("Place coordinate: \(place.coordinate)")
         dismiss(animated: true, completion: nil)
         if isPickup  {
-            self.TextFieldPickupAddress.text = place.formattedAddress
+            //place.addressComponents?.first?.name
+            //place.name
+            //place.formattedAddress
+            
+            self.TextFieldPickupAddress.text = place.name
             let pickupLat = place.coordinate.latitude
             let pickupLog = place.coordinate.longitude
             self.PickupLocation = "\(pickupLat),\(pickupLog)"
             isPickup = false
         }
         else if isDrop {
-            self.TextFieldDropAddress.text = place.formattedAddress
+            self.TextFieldDropAddress.text = place.name
             let pickupLat = place.coordinate.latitude
             let pickupLog = place.coordinate.longitude
             self.DropLocation = "\(pickupLat),\(pickupLog)"
@@ -845,7 +880,7 @@ extension HomeViewController: GMSAutocompleteViewControllerDelegate {
         }
         else if isPickupPoint{
             if openAlert(){
-                self.TextFieldPickupPoint.text = place.formattedAddress
+                self.TextFieldPickupPoint.text = place.name
                 let pickupLat = place.coordinate.latitude
                 let pickupLog = place.coordinate.longitude
                 self.pickupPointLocation = "\(pickupLat),\(pickupLog)"
